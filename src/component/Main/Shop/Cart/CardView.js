@@ -62,16 +62,16 @@ class CartView extends Component {
                     data={cart}
                     renderItem={({ item }) =>
                         <View style={product}>
-                            <Image source={{ uri: `${url}${item.options.image}` }} style={productImage} />
+                            <Image source={{ uri: `${url}${item.sanpham_anh}` }} style={productImage} />
                             <View style={[mainRight]}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={txtName}>{item.name}</Text>
+                                    <Text style={txtName}>{item.sanpham_ten}</Text>
                                     <TouchableOpacity onPress={() => this.onRemoveFromCart(item)} >
                                         <Ionicons name="ios-close-circle-outline" color="black" size={30} />
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <Text style={txtPrice}>{(item.price * item.qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}$</Text>
+                                    <Text style={txtPrice}>{(item.gia_tien * item.qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}$</Text>
                                 </View>
                                 <View style={productController}>
                                     <View style={numberOfProduct}>

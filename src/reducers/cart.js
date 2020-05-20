@@ -9,20 +9,23 @@ const cart = (state = initialState, action) => {
          console.log('ADD_TO_CART_SUCCESS state', state);
          var gioHang = {
             "id": action.item.id,
-            "name": action.item.sanpham_ten,
+            "sanpham_ten": action.item.sanpham_ten,
             "qty": 1,
-            "price": action.item.gia_tien,
-            "weight": 30000,
-            "options": {
-               "image": action.item.sanpham_anh,
-               "donvitinh": "kg",
-               "shop_id": action.item.shop_id,
-               "lohang_id": action.item.lohang_id
-            },
+            "gia_tien": action.item.gia_tien,
+            "weight": 30000,         
+            "sanpham_anh": action.item.sanpham_anh,
+            "donvitinh": "kg",
+            "subtotal": action.item.gia_tien,      
+            "sanpham_mo_ta": action.item.sanpham_mo_ta,
+            "loaisanpham_id": action.item.loaisanpham_id,
+            "donvitinh_id": action.item.donvitinh_id,           
+            "phan_tram_km": action.item.phan_tram_km ,
+            "donvi_id": action.item.donvi_id,
+            "discount": 0,
+            "shop_id": action.item.shop_id,
+            "lohang_id": action.item.lohang_i,            
             "discount": 0,
             "tax": 5040,
-            "subtotal": action.item.gia_tien
-
          }
          const huyhoang = [...state, action.product];
          var exists = false;

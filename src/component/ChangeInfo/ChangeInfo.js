@@ -3,8 +3,9 @@ import {
     View, TouchableOpacity, Text, Image, StyleSheet, TextInput
 } from 'react-native';
 import backSpecial from '../../media/appIcon/backs.png';
+import { connect } from 'react-redux';
 
-export default class ChangeInfo extends Component {
+ class ChangeInfo extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -17,13 +18,16 @@ export default class ChangeInfo extends Component {
         const { navigation } = this.props;
         navigation.goBack();
     }
+    change(){
+        alert('123 ' + this.state.txtName + " : "+ this.state.txtAddress + " : "+ this.state.txtPhone);
+    }
 
     render() {
         const {
             wrapper, header, headerTitle, backIconStyle, body,
             signInContainer, signInTextStyle, textInput
         } = styles;
-        const { name, address, phone } = this.state;
+        const { txtName, txtAddress, txtPhone } = this.state;
         return (
             <View style={wrapper}>
                 <View style={header}>
@@ -38,24 +42,25 @@ export default class ChangeInfo extends Component {
                         style={textInput}
                         placeholder="Enter your name"
                         autoCapitalize="none"
-                        value={name}
+                        value = {txtName}
                         onChangeText={txtName => this.setState({ ...this.state, txtName })}
                     />
                     <TextInput
                         style={textInput}
                         placeholder="Enter your address"
                         autoCapitalize="none"
-                        value={address}
+                        value = {txtAddress}
                         onChangeText={txtAddress => this.setState({ ...this.state, txtAddress })}
                     />
                     <TextInput
                         style={textInput}
                         placeholder="Enter your phone number"
                         autoCapitalize="none"
-                        value={phone}
+                        keyboardType='numeric'
+                        value = {txtPhone}
                         onChangeText={txtPhone => this.setState({ ...this.state, txtPhone })}
                     />
-                    <TouchableOpacity style={signInContainer}>
+                    <TouchableOpacity style={signInContainer} onPress={()=>this.change()}>
                         <Text style={signInTextStyle}>CHANGE YOUR INFOMATION</Text>
                     </TouchableOpacity>
                 </View>
@@ -63,6 +68,12 @@ export default class ChangeInfo extends Component {
         );
     }
 }
+const mapStateToProps = state =>{
+    return{
+        user : state.user ,
+    }
+}
+export default connect(mapStateToProps,null)(ChangeInfo);
 
 const styles = StyleSheet.create({
     wrapper: { flex: 1, backgroundColor: '#fff' },

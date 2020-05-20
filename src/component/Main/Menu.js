@@ -72,7 +72,7 @@ const Drawer = createDrawerNavigator();
             </Drawer.Navigator>
         );
         const mainJSX = user.checked == "success" ? loginJSX : logoutJSX;
-       console.log('menu' + user.checked );
+      // console.log('menu' + user.checked );
         return mainJSX
     }
 }

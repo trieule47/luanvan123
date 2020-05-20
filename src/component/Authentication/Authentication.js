@@ -74,7 +74,7 @@ class Authantication extends Component {
 
         const signInJSX = (
             <View>
-                <TextInput style={inputStyle} placeholder="Enter your Email / Username"
+                <TextInput style={inputStyle} placeholder="Enter your Email / Username" keyboardType="email-address"
                     onChangeText ={(text) => {
                         this.setState({
                             info_SignIn: {
@@ -113,7 +113,7 @@ class Authantication extends Component {
 
         const signUpJSX = (
             <ScrollView>
-                <TextInput style={inputStyle} ref={'txtEmail'} placeholder="Enter your email"
+                <TextInput style={inputStyle} ref={'txtEmail'} placeholder="Enter your email" keyboardType="email-address"
                     onChangeText={(text) => {
                         this.setState({
                             info: {
@@ -143,7 +143,7 @@ class Authantication extends Component {
                         });
                     }}
                 />
-                <TextInput style={inputStyle} ref={'txtPhone'} placeholder="Enter your number phone"
+                <TextInput style={inputStyle} ref={'txtPhone'} placeholder="Enter your number phone" keyboardType="numeric"
                     onChangeText={(text) => {
                         this.setState({
                             info: {
