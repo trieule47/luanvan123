@@ -18,6 +18,7 @@ import Logo from '../../media/temp/profile.png';
 
 import { connect } from 'react-redux';
 import { actSignOut } from '../../action/UserAction';
+import { actAddProductRequest } from '../../action/ShopAction';
 
 const url = 'http://vaomua.club/public/user/image/images/';
 const image = 'bg_3.jpg'
@@ -30,7 +31,10 @@ function MenuLogin(props) {
   //console.log("image :"+ JSON.stringify(props.user.infoUser.avatar) );
   const name = props.user.infoUser.name;
   const avatar = props.user.infoUser.avatar;
-
+  const request = () => {
+    this.props.AddProduct(this.props.user.infoUser);
+    console.log('user ' + JSON.stringify(this.props.user.infoUser))
+  }
         return (
             <View style={{flex:1}}>
             <DrawerContentScrollView {...props}>
@@ -59,7 +63,9 @@ function MenuLogin(props) {
                         />
                         <DrawerItem 
                             label="DangKyShop"
-                            onPress={() => {props.navigation.navigate('DangKyShop')}}
+                            onPress={() => {
+                             // this.request();
+                              props.navigation.navigate('DangKyShop')}}
                         />
                         <DrawerItem 
                             label="My shop"
@@ -86,6 +92,9 @@ const mapDispatchToProps = dispatch => {
 
   return {
       onSignOut: () => { dispatch(actSignOut()) },
+      AddProduct: (infor) => {
+        dispatch(actAddProductRequest(infor));
+      },
   }
 }
 export default connect(mapStateTopProps,mapDispatchToProps)(MenuLogin);

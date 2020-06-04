@@ -19,6 +19,8 @@ import {
   actInforShopRequest,
 } from "../../../action/ShopAction";
 
+import Colection from "../../Main/Shop/Home/Category";
+
 const url = "http://vaomua.club/public/user/image/images/";
 
 class SanPham extends Component {
@@ -35,7 +37,7 @@ class SanPham extends Component {
     
     this.props.GetInforShop(this.props.user.infoUser);
 
-    console.log('user infor: '+ JSON.stringify(this.props.myshop.inforShop));
+   // console.log('user infor: '+ JSON.stringify(this.props.myshop.inforShop));
    // console.log('shop infor: '+ JSON.stringify(this.props.myshop.dsshop));
 
     //this.props.ShopGetProduct(this.props.myshop.inforShop.id);
@@ -62,6 +64,7 @@ class SanPham extends Component {
     return (
       <ScrollView>
         <Header a={this.props.myshop.inforShop}  navigation={this.props.navigation}/>
+        <Colection/>
         <View style={container}>
           <View style={titleContainer}>
             <Text style={title}>My PRODUCT</Text>

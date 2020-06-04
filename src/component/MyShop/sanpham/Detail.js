@@ -29,15 +29,15 @@ class Detail extends Component {
   }
   componentDidMount() {
     // console.log('myshop product: '+ JSON.stringify(this.props.myshop.sanphamshop));
-    console.log("hggfggg :" + this.props.myshop.inforShop.id);
-    this.props.ShopGetProduct(this.props.myshop.inforShop.id);
-    console.log(
-      "myshop product: " + JSON.stringify(this.props.myshop.sanphamshop)
-    );
+   // console.log("hggfggg :" + this.props.myshop.inforShop.id);
+   // this.props.ShopGetProduct(this.props.myshop.inforShop.id);
+    //console.log(
+   //   "myshop product: " + JSON.stringify(this.props.myshop.sanphamshop)
+    // );
     this.setState({
-      isLoading: false,
+      isLoading: this.props.myshop.isLoading,
     });
-    console.log("      A: " + JSON.stringify(this.props.b[0]));
+    // console.log("A:" + JSON.stringify(this.props.b[0]));
   }
 
   render() {
@@ -58,6 +58,7 @@ class Detail extends Component {
       return <ActivityIndicator size="large" color="#0000ff" />;
     else
       return (
+        <View>
         <View style={body}>
           {/* <FlatList
             data={b}
@@ -101,6 +102,12 @@ class Detail extends Component {
               </Text>
             </TouchableOpacity>
           ))}
+        </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+          </View>
         </View>
       );
   }
