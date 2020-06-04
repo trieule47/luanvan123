@@ -5,6 +5,8 @@ import Shop from './Shop/Shop';
 import Authentication from '../Authentication/Authentication';
 import ChangeInfo from '../ChangeInfo/ChangeInfo';
 import OrderHistory from '../OrderHistory/OrderHistory';
+import MyShop from '../MyShop/MyShop';
+import DangKyShop from '../MyShop/DangKyShop';
 
 import MenuLogin from './MenuLogin';
 import MenuLogOut from './MenuLogOut';
@@ -59,7 +61,8 @@ const Drawer = createDrawerNavigator();
         const loginJSX = (
             <Drawer.Navigator initialRouteName="Shop" drawerContent={props => <MenuLogin {...props} />} >
                 <Drawer.Screen name="Shop" component={Shop} />
-                <Drawer.Screen name="Main" component={Main} />
+                <Drawer.Screen name="MyShop" component={MyShop} />
+                <Drawer.Screen name="DangKyShop" component={DangKyShop} />
                 <Drawer.Screen name="Authentication" component={Authentication} />
                 <Drawer.Screen name="ChangeInfo" component={ChangeInfo} />
                 <Drawer.Screen name="OrderHistory" component={OrderHistory} />
@@ -68,6 +71,7 @@ const Drawer = createDrawerNavigator();
         const logoutJSX = (
             <Drawer.Navigator initialRouteName="Shop" drawerContent={props => <MenuLogOut {...props} />} >
                 <Drawer.Screen name="Shop" component={Shop} />
+                <Drawer.Screen name="DangKyShop" component={DangKyShop} />
                 <Drawer.Screen name="Sign In" component={Main} />
             </Drawer.Navigator>
         );

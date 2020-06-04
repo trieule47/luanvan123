@@ -17,3 +17,13 @@ export const DOWN_QUANTITY_CART = 'DOWN_QUANTITY_CART';
 export const FETCH_TOP_PRODUCT = 'FETCH_TOP_PRODUCT';
 // CATEGORY
 export const FETCH_CATEGORY = 'FETCH_CATEGORY';
+// change infor
+
+export const CHANGE_INFO ="CHANGE_INFO";
+
+// shop
+export const SHOP_SIGN_UP="SHOP_SIGN_UP";
+export const GET_PRODUCT="GET_PRODUCT";
+export const GET_DS_SHOP="GET_DS_SHOP";
+export const GET_INFOR_SHOP ="GET_INFOR_SHOP";
+export const ADD_PRODUCT = "ADD_PRODUCT";

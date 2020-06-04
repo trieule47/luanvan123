@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
 import backList from '../../../../media/appIcon/backList.png';
-import sp1 from '../../../../media/temp/sp1.jpeg';
+const sp1="http://vaomua.club/public/user/image/images//mon-ngon-tu-nam-kim-cham.jpg"
 
 export default class ListProduct extends Component {
     goBack() {
@@ -25,17 +25,17 @@ export default class ListProduct extends Component {
                         <TouchableOpacity onPress={this.goBack.bind(this)} >
                             <Image source={backList} style={backStyle} />
                         </TouchableOpacity>
-                        <Text style={titleStye}>Dành cho lúa</Text>
+                        <Text style={titleStye}>Dành cho rau</Text>
                         <View style={{ width: 30 }} />
                     </View>
                     <View style={productContainer}>
-                        <Image style={productImage} source={sp1} />
+                        <Image style={productImage} source={{uri: sp1}} />
                         <View style={productInfo}>
-                            <Text style={txtName} >Lace Sleeve Si</Text>
+                            <Text style={txtName} >nấm kim châm</Text>
                             <Text style={txtPrice}>117$</Text>
                             <Text style={txtMaterial}>Material silk</Text>
                             <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color RoyalBlue</Text>
+                                <Text style={txtColor}> RoyalBlue</Text>
                                 <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
                                 <TouchableOpacity>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>
@@ -44,13 +44,13 @@ export default class ListProduct extends Component {
                         </View>
                     </View>
                     <View style={productContainer}>
-                        <Image style={productImage} source={sp1} />
+                        <Image style={productImage} source={{uri: sp1}} />
                         <View style={productInfo}>
-                            <Text style={txtName} >Lace Sleeve Si</Text>
+                            <Text style={txtName} >nấm kim châm</Text>
                             <Text style={txtPrice}>117$</Text>
                             <Text style={txtMaterial}>Material silk</Text>
                             <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color RoyalBlue</Text>
+                                <Text style={txtColor}> RoyalBlue</Text>
                                 <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
                                 <TouchableOpacity>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>
@@ -59,13 +59,13 @@ export default class ListProduct extends Component {
                         </View>
                     </View>
                     <View style={productContainer}>
-                        <Image style={productImage} source={sp1} />
+                        <Image style={productImage} source={{uri: sp1}} />
                         <View style={productInfo}>
-                            <Text style={txtName} >Lace Sleeve Si</Text>
+                            <Text style={txtName} >nấm kim châm</Text>
                             <Text style={txtPrice}>117$</Text>
                             <Text style={txtMaterial}>Material silk</Text>
                             <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color RoyalBlue</Text>
+                                <Text style={txtColor}> RoyalBlue</Text>
                                 <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
                                 <TouchableOpacity>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>
@@ -74,13 +74,13 @@ export default class ListProduct extends Component {
                         </View>
                     </View>
                     <View style={productContainer}>
-                        <Image style={productImage} source={sp1} />
+                        <Image style={productImage} source={{uri: sp1}} />
                         <View style={productInfo}>
-                            <Text style={txtName} >Lace Sleeve Si</Text>
+                            <Text style={txtName} >nấm kim châm</Text>
                             <Text style={txtPrice}>117$</Text>
                             <Text style={txtMaterial}>Material silk</Text>
                             <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color RoyalBlue</Text>
+                                <Text style={txtColor}> RoyalBlue</Text>
                                 <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
                                 <TouchableOpacity>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>
@@ -89,13 +89,13 @@ export default class ListProduct extends Component {
                         </View>
                     </View>
                     <View style={productContainer}>
-                        <Image style={productImage} source={sp1} />
+                        <Image style={productImage} source={{uri: sp1}}/>
                         <View style={productInfo}>
-                            <Text style={txtName} >Lace Sleeve Si</Text>
+                            <Text style={txtName} >nấm kim châm</Text>
                             <Text style={txtPrice}>117$</Text>
                             <Text style={txtMaterial}>Material silk</Text>
                             <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color RoyalBlue</Text>
+                                <Text style={txtColor}> RoyalBlue</Text>
                                 <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
                                 <TouchableOpacity>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>

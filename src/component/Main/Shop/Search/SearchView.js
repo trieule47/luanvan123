@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions } from 'react-native';
 
-import sp1 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
+
+
 import Header from '../Header';
+
+const sp1="http://vaomua.club/public/user/image/images//mon-ngon-tu-nam-kim-cham.jpg"
+
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -28,9 +31,9 @@ class SearchView extends Component {
             <ScrollView style={wrapper}>
                 <Header onOpen={() => { this.openMenu() }} />
                 <View style={product}>
-                    <Image source={sp1} style={productImage} />
+                    <Image source={{uri: sp1}} style={productImage} />
                     <View style={mainRight}>
-                        <Text style={txtName}>{toTitleCase('black dress')}</Text>
+                        <Text style={txtName}>{toTitleCase('nấm kim châm')}</Text>
                         <Text style={txtPrice}>100$</Text>
                         <Text style={txtMaterial}>Material Fur</Text>
                         <View style={{ flexDirection: 'row' }} >
@@ -51,15 +54,15 @@ class SearchView extends Component {
                     </View>
                 </View>
                 <View style={product}>
-                    <Image source={sp4} style={productImage} />
+                    <Image source={{uri: sp1}} style={productImage} />
                     <View style={mainRight}>
-                        <Text style={txtName}>{toTitleCase('black dress')}</Text>
+                        <Text style={txtName}>{toTitleCase('nấm kim châm')}</Text>
                         <Text style={txtPrice}>100$</Text>
                         <Text style={txtMaterial}>Material Fur</Text>
                         <View style={{ flexDirection: 'row' }} >
                             <Text style={txtColor}>Color white</Text>
                             <View style={{ flexDirection: 'row' }} >
-                                <Text style={txtColor}>Color white</Text>
+                                
                                 <View
                                     style={{
                                         height: 15,

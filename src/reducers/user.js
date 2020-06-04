@@ -11,6 +11,9 @@ const signin = (state = initialState, action) => {
             return { ...state, infoUser: action.info, checked : action.checked } 
         case types.SIGN_OUT:
             return { ...state, infoUser: action.info, checked : action.checked } 
+        case types.CHANGE_INFO:
+            return {...state, infoUser : action.info}  
+    
         default: return { ...state };
     }
 }

@@ -11,7 +11,7 @@ export const actSignInRequest = (info) => {
                 Alert.alert("Thông báo !", "Tài khoản hoặc mật khẩu không đúng");
             }
             else {
-                console.log('res', res)
+               // console.log('res', res)
                 dispatch(actSignIn(res.data.user, res.data.status));
                 RootNavigation.navigate('Shop');
             }
@@ -32,5 +32,43 @@ export const actSignOut = () =>{
         type : types.SIGN_OUT,
         info : ' ',
         checked: ' '
+    }
+}
+
+
+
+export const actChangeInfoRequest = (id, email, info) => {
+    const body = {
+        id : id,
+        email : email,
+        password: info.password ,
+        name : info.name,
+        sodienthoai : info.sodienthoai,
+        diachi : info.diachi
+    }
+    return (dispatch) => {
+        callApi('change/' + id, 'PUT', body).then(res => {
+            if(res.data.status == "error")
+            {
+                Alert.alert("Thông báo !", "Thay đổi không thành công");
+            }
+            else
+            {
+                dispatch(actChangeInfo(res.data.user));
+                Alert.alert("Thông báo !", "Thay đổi thành công", [
+                    {
+                        text : "Tiếp tục",
+                        onPress : () => {RootNavigation.navigate('Shop');}
+                    }
+                ]);
+            }
+        });
+    };
+}
+
+export const actChangeInfo = (info) => {
+    return {
+        type : types.CHANGE_INFO,
+        info,
     }
 }

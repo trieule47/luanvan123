@@ -52,9 +52,18 @@ function MenuLogin(props) {
                             label="OrderHistory"
                             onPress={() => {props.navigation.navigate('OrderHistory')}}
                         />
+                        
                         <DrawerItem 
                             label="ChangeInfo"
                             onPress={() => {props.navigation.navigate('ChangeInfo')}}
+                        />
+                        <DrawerItem 
+                            label="DangKyShop"
+                            onPress={() => {props.navigation.navigate('DangKyShop')}}
+                        />
+                        <DrawerItem 
+                            label="My shop"
+                            onPress={() => {props.navigation.navigate('MyShop')}}
                         />
                         <DrawerItem 
                             label="Sign Out"
