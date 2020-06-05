@@ -58,9 +58,9 @@ class Shop extends Component {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === 'Trang chủ') {
             iconName = focused ? 'ios-home' : 'ios-home';
-          } else if (route.name === 'Cart') {
+          } else if (route.name === 'Giỏ hàng') {
             return (
               <CartIconWithBadge
                 name={
@@ -73,7 +73,7 @@ class Shop extends Component {
                 badgeCount={cart.length}
               />
             );
-          } else if (route.name === 'Search') {
+          } else if (route.name === 'Tìm kiếm') {
             iconName = focused ? 'ios-search' : 'ios-search';
           } else if (route.name === 'Contact') {
             iconName = focused ? 'ios-contact' : 'ios-contact';
@@ -88,10 +88,10 @@ class Shop extends Component {
         inactiveTintColor: 'gray',
       }}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Cart" component={Cart} />
-      <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Contact" component={Contact} />
+      <Tab.Screen name="Trang chủ" component={Home} />
+      <Tab.Screen name="Giỏ hàng" component={Cart} />
+      <Tab.Screen name="Tìm kiếm" component={Search} />
+      {/* <Tab.Screen name="Contact" component={Contact} /> */}
     </Tab.Navigator>
     )
   }

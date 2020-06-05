@@ -25,7 +25,7 @@ class Category extends Component {
         return (
             <View style={wrapper} >
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <Text style={textStyle}>LIST OF CATEGORY</Text>
+                    <Text style={textStyle}>Danh sách sản phẩm</Text>
                 </View>
                 <View style={{ flex: 3 }}>
                     <Swiper width={imageWidth} height={imageHeight} >

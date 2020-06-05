@@ -115,7 +115,7 @@ class Authantication extends Component {
       <View>
         <TextInput
           style={inputStyle}
-          placeholder="Enter your Email / Username"
+          placeholder="Nhập Email hoặc Tên đăng nhập"
           keyboardType="email-address"
           onChangeText={(text) => {
             this.setState({
@@ -129,7 +129,7 @@ class Authantication extends Component {
         />
         <TextInput
           style={inputStyle}
-          placeholder="Enter your password"
+          placeholder="Nhập mật khẩu của bạn"
           secureTextEntry
           onChangeText={(text) => {
             this.setState({
@@ -152,7 +152,7 @@ class Authantication extends Component {
             //     console.log("Thông báo Đăng nhập : " + JSON.stringify(user.infoUser) + " Check " + user.checked);
           }}
         >
-          <Text style={buttonText}>SIGN IN NOW</Text>
+          <Text style={buttonText}>Đăng nhập</Text>
         </TouchableOpacity>
       </View>
     );
@@ -162,7 +162,7 @@ class Authantication extends Component {
         <TextInput
           style={inputStyle}
           ref={"txtEmail"}
-          placeholder="Enter your email"
+          placeholder="Nhập địa chỉ Email của bạn"
           keyboardType="email-address"
           onChangeText={(text) => {
             this.setState({
@@ -176,7 +176,7 @@ class Authantication extends Component {
         <TextInput
           style={inputStyle}
           ref={"txtName"}
-          placeholder="Enter your name"
+          placeholder="Nhập tên của bạn"
           onChangeText={(text) => {
             this.setState({
               info: {
@@ -189,7 +189,7 @@ class Authantication extends Component {
         <TextInput
           style={inputStyle}
           ref={"txtAddress"}
-          placeholder="Enter your address"
+          placeholder="Nhập địa chỉ của bạn"
           onChangeText={(text) => {
             this.setState({
               info: {
@@ -202,7 +202,7 @@ class Authantication extends Component {
         <TextInput
           style={inputStyle}
           ref={"txtPhone"}
-          placeholder="Enter your number phone"
+          placeholder="Nhập số điện thoại của bạn"
           keyboardType="numeric"
           onChangeText={(text) => {
             this.setState({
@@ -216,7 +216,7 @@ class Authantication extends Component {
         <TextInput
           style={inputStyle}
           ref={"txtPass"}
-          placeholder="Enter your password"
+          placeholder="Nhập mật khẩu"
           onChangeText={(text) => {
             this.setState({
               info: {
@@ -229,7 +229,7 @@ class Authantication extends Component {
         <TextInput
           style={inputStyle}
           ref={"txtRePass"}
-          placeholder="Re-enter your password"
+          placeholder="Nhập lại mật khẩu"
           onChangeText={(text) => {
             this.setState({
               repassword: text,
@@ -257,7 +257,7 @@ class Authantication extends Component {
             }
           }}
         >
-          <Text style={buttonText}>SIGN UP NOW</Text>
+          <Text style={buttonText}>Đăng kí</Text>
         </TouchableOpacity>
       </ScrollView>
     );
@@ -282,13 +282,13 @@ class Authantication extends Component {
             style={singInStyle}
             onPress={this.signIn.bind(this)}
           >
-            <Text style={isSignIn ? activeStyle : inactiveStyle}>SIGN IN</Text>
+            <Text style={isSignIn ? activeStyle : inactiveStyle}>Đăng kí</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={signUpStyle}
             onPress={this.signUp.bind(this)}
           >
-            <Text style={!isSignIn ? activeStyle : inactiveStyle}>SIGN UP</Text>
+            <Text style={!isSignIn ? activeStyle : inactiveStyle}>Đăng nhập</Text>
           </TouchableOpacity>
         </View>
       </View>

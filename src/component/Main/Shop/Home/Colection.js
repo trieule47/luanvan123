@@ -11,7 +11,7 @@ export default class Colection extends Component {
         return (
             <View style= { wrapper } >
                 <View style={{ flex: 1, justifyContent:'center' }}>
-                    <Text style={textStyle}>Colection</Text>
+                    <Text style={textStyle}>Quảng cáo</Text>
                 </View>
                 <TouchableOpacity  style={{flex: 3}}>
                 <Image  source={{uri: bannerImage}} style={imageStyle} />

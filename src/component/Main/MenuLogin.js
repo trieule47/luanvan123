@@ -53,26 +53,26 @@ function MenuLogin(props) {
 
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
-                            label="OrderHistory"
+                            label="Lịch sử giao dịch"
                             onPress={() => {props.navigation.navigate('OrderHistory')}}
                         />
                         
                         <DrawerItem 
-                            label="ChangeInfo"
+                            label="Thay đổi thông tin"
                             onPress={() => {props.navigation.navigate('ChangeInfo')}}
                         />
                         <DrawerItem 
-                            label="DangKyShop"
+                            label="Đăng kí mở shop"
                             onPress={() => {
                              // this.request();
                               props.navigation.navigate('DangKyShop')}}
                         />
                         <DrawerItem 
-                            label="My shop"
+                            label="Shop của tôi"
                             onPress={() => {props.navigation.navigate('MyShop')}}
                         />
                         <DrawerItem 
-                            label="Sign Out"
+                            label="Đăng xuất"
                             onPress={() => {props.onSignOut()}}
                         />
                     </Drawer.Section>

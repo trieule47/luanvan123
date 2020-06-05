@@ -34,15 +34,7 @@ function MenuLogOut(props) {
 
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
-                            label="DangKyShop"
-                            onPress={() => {props.navigation.navigate('DangKyShop')}}
-                        />
-                        <DrawerItem 
-                            label="My shop"
-                            onPress={() => {props.navigation.navigate('MyShop')}}
-                        />
-                        <DrawerItem 
-                            label="Sign in"
+                            label="Đăng nhập"
                             onPress={() => {props.navigation.navigate('Authentication')}}
                         />
                     </Drawer.Section>

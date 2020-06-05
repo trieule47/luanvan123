@@ -31,7 +31,7 @@ class TopProduct extends Component {
         return (
             <View style={container}>
                 <View style={titleContainer}>
-                    <Text style={title}>TOP PRODUCT</Text>
+                    <Text style={title}>Sản phẩm nổi bật</Text>
                 </View>
                 <View style={body}>
                     {topproducts.map(e => (

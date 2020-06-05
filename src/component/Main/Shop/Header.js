@@ -21,10 +21,6 @@ export default class Header extends Component {
                         <Image source={icLogo} style={iconStyle} />
                     </TouchableOpacity>
                 </View>
-                <TextInput 
-                    style={textIput}
-                    placeholder="Bạn muốn mua gì ?"
-                    underlineColorAndroid="transparent" />
             </View>
         )
     }
@@ -34,7 +30,7 @@ const styles = StyleSheet.create({
     wrapper: { height: height / 8, backgroundColor: '#34B089', padding: 10, justifyContent:'space-around' },
     row1 : { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3  },
     textIput: { height: height/23 , backgroundColor: '#FFF', paddingLeft: 10, paddingVertical: 0  },
-    iconStyle : { width: 25, height: 25 },
+    iconStyle : { width: 30, height: 30 },
     titleStyle: { color: '#FFF', fontSize: 20 }
 });
 
