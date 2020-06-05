@@ -8,15 +8,13 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import Header from "../Header";
 import Detail from "../sanpham/Detail";
 import { connect } from "react-redux";
 import {
-  actShopGetProductRequest,
-  actDSShopGetRequest,
-  inforshop,
-  actInforShopRequest,
+  actAllInfoShopRequest
 } from "../../../action/ShopAction";
 
 import Colection from "../../Main/Shop/Home/Category";
@@ -32,23 +30,14 @@ class SanPham extends Component {
     
   }
   componentDidMount() {
-   
-    //this.props.GetDSShop();
     
-    this.props.GetInforShop(this.props.user.infoUser);
-
-   // console.log('user infor: '+ JSON.stringify(this.props.myshop.inforShop));
-   // console.log('shop infor: '+ JSON.stringify(this.props.myshop.dsshop));
-
-    //this.props.ShopGetProduct(this.props.myshop.inforShop.id);
-    // console.log('myshop product: '+ JSON.stringify(this.props.myshop.sanphamshop));
-   
+    this.props.GetInforShop(this.props.user.infoUser.id);
+    console.log("ALO LAO " + this.props.user.infoUser.id);
   }
   
 
   render() {
     const { myshop, user } = this.props;
-  //  console.log("myshop:" + JSON.stringify(myshop));
     const {
       container,
       titleContainer,
@@ -63,14 +52,17 @@ class SanPham extends Component {
     
     return (
       <ScrollView>
-        <Header a={this.props.myshop.inforShop}  navigation={this.props.navigation}/>
+        <Header a={myshop.inforShop}  navigation={this.props.navigation}/>
         <Colection/>
         <View style={container}>
           <View style={titleContainer}>
             <Text style={title}>My PRODUCT</Text>
           </View>
-          <Detail b={this.props.myshop.sanphamshop} navigation={this.props.navigation} />
+          <Detail b={myshop.sanphamshop} navigation={this.props.navigation} />
       </View>
+      <TouchableOpacity onPress={()=> Alert.alert(JSON.stringify(myshop.inforShop))} >
+          <Text> CC</Text>
+      </TouchableOpacity>
       </ScrollView>
     );
   }
@@ -85,9 +77,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ShopGetProduct: (id) => dispatch(actShopGetProductRequest(id)),
-    GetDSShop: () => dispatch(actDSShopGetRequest()),
-    GetInforShop: (u) => dispatch(actInforShopRequest(u))
+    GetInforShop: (id_user) => dispatch(actAllInfoShopRequest(id_user)),
   };
 };
 

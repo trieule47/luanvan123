@@ -13,11 +13,6 @@ import {
 // Redux
 import { actSignUpRequest } from "../../action/SignUpAction";
 import { actSignInRequest } from "../../action/UserAction";
-import {
-  actShopGetProductRequest,
-  actDSShopGetRequest,
-  inforshop,
-} from "../../action/ShopAction";
 
 import { connect } from "react-redux";
 
@@ -60,8 +55,6 @@ class Authantication extends Component {
     console.log("Action sign-u");
 
     this.props.onSignUp(info);
-    // this.props.GetDSShop();
-    // this.props.GetInforShop(this.props.user, this.props.myshop.dsshop);
     
   };
 
@@ -73,10 +66,6 @@ class Authantication extends Component {
       email: "test@1234.com",
     };
     
-    this.props.GetDSShop();
-
-//     this.props.GetInforShop(this.props.user.infoUser, this.props.myshop.dsshop);
-//  this.props.ShopGetProduct(15);
     this.props.onSignIn(a);
   };
 
@@ -311,10 +300,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSignIn: (info) => {
       dispatch(actSignInRequest(info));
-    },
-    ShopGetProduct: (id) => dispatch(actShopGetProductRequest(id)),
-    GetDSShop: () => dispatch(actDSShopGetRequest()),
-    GetInforShop: (u, ds) => dispatch(inforshop(u, ds)),
+    }
     
   };
 };

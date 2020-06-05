@@ -23,7 +23,6 @@ export const CHANGE_INFO ="CHANGE_INFO";
 
 // shop
 export const SHOP_SIGN_UP="SHOP_SIGN_UP";
-export const GET_PRODUCT="GET_PRODUCT";
-export const GET_DS_SHOP="GET_DS_SHOP";
 export const GET_INFOR_SHOP ="GET_INFOR_SHOP";
+export const GET_PRODUCT="GET_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
