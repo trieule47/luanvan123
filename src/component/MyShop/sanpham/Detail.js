@@ -104,11 +104,6 @@ class Detail extends Component {
             </TouchableOpacity>
           ))}
         </View>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
-            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
-            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
-          </View>
         </View>
       );
   }

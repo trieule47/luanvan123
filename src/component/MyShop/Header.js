@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Dimensions, Image, StyleSheet } from 'react-native'
+import { View, Text, Dimensions, Image, StyleSheet, Button } from 'react-native'
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler'
 import * as RootNavigation from '../../navigation/RootNavigation'
 import icLogo from '../../media/appIcon/ic_logo.png';
@@ -15,7 +15,7 @@ export default class Header extends Component {
         return (
             <View style={{ wrapper, backgroundColor: '#34B089', padding: 10  }}>
                 <View style={row1}>
-                    <TouchableOpacity onPress={()=> RootNavigation.navigate('Shop')} >
+                    <TouchableOpacity onPress={()=> RootNavigation.navigate('SanPhamView')} >
                         <Image source={icback} style={iconStyle}  />
                     </TouchableOpacity>
                     <Text style = {titleStyle}>Nông sản</Text>
@@ -25,8 +25,6 @@ export default class Header extends Component {
                 </View>
                 <View style={row1}>
                 <Text  style = {titleStyle}>{a.tenshop}</Text>
-                <Image source={{ uri: `${url}${a.image_name}` }} style={{height:40, width: 40, borderRadius:10}} />
-                <TouchableOpacity  onPress={()=> navigation.navigate('AddProduct')} ><Text style={{fontSize: 30, color:'white' }}>+</Text></TouchableOpacity>
                 </View>
             </View>
         )
@@ -35,11 +33,11 @@ export default class Header extends Component {
 
 
 const styles = StyleSheet.create({
-    wrapper: { height: height / 8, backgroundColor: '#34B089', padding: 10, justifyContent:'space-around' },
-    row1 : { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3  },
+    wrapper: { height: height / 8, backgroundColor: '#34B089', padding: 10, justifyContent:'space-around', flex: 1 },
+    row1 : { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3 },
     textIput: { height: height/23 , backgroundColor: '#FFF', paddingLeft: 10, paddingVertical: 0  },
     iconStyle : { width: 25, height: 25 },
-    titleStyle: { color: '#FFF', fontSize: 20 }
+    titleStyle: { color: '#FFF', fontSize: 20, flexDirection: 'row', justifyContent: 'space-between', }
 });
 
 /* <TouchableOpacity

@@ -80,4 +80,8 @@ export const AddProduct = (data) => {
         type: types.ADD_PRODUCT,
         sanphamdathem: data,
     };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 9ffd8a9173bd77cba50dc3af4546b25c16a6129f
