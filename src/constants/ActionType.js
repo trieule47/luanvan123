@@ -13,10 +13,9 @@ export const REMOVE_FROM_CART ='REMOVE_FROM_CART';
 export const UP_QUANTITY_CART = 'UP_QUANTITY_CART';
 export const DOWN_QUANTITY_CART = 'DOWN_QUANTITY_CART';
 
-// Danh sach san pham
+// top product
 export const FETCH_TOP_PRODUCT = 'FETCH_TOP_PRODUCT';
-// CATEGORY
-export const FETCH_CATEGORY = 'FETCH_CATEGORY';
+
 // change infor
 
 export const CHANGE_INFO ="CHANGE_INFO";
@@ -26,3 +25,4 @@ export const SHOP_SIGN_UP="SHOP_SIGN_UP";
 export const GET_INFOR_SHOP ="GET_INFOR_SHOP";
 export const GET_PRODUCT="GET_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
+export const GET_SLIDE = "GET_SLIDE";

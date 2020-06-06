@@ -2,7 +2,7 @@ import * as types from '../constants/ActionType';
 
 const initialState = {
     inforShop: [],
-    dsshop: [],
+    slide_shop: [],
     sanphamshop: [],
     thongbao: [],
 };
@@ -15,8 +15,8 @@ const myshop = (state = initialState, action) => {
             return { ...state, inforShop: action.data, idLoading: action.isLoading }
         case types.GET_PRODUCT:
             return { ...state, sanphamshop: action.data}
-        case types.GET_DS_SHOP:
-            return { ...state, dsshop: action.dsshop}
+        case types.GET_SLIDE:
+            return  {...state, slide_shop : action.item}
         default: return { ...state};
     }
 }

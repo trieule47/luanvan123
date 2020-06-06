@@ -3,7 +3,6 @@ import topproducts from './topproducts';
 import cart from './cart';
 import signup from './signup';
 import user from './user';
-import slide from './category';
 import myshop from './shop';
 
 const appReducers = combineReducers({
@@ -11,7 +10,6 @@ const appReducers = combineReducers({
     cart,
     signup,
     user,
-    slide,
     myshop
 
 });
