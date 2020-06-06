@@ -29,7 +29,7 @@ export const actShopSignUp = (info) => {
     };
 };
 //================== Lấy hết thông tin shop + sản phẩm =================================
-export const actAllInfoShopRequest = (id_user) => {
+export const actAllInfoShopRequest = (id_user, page) => {
     return (dispatch) => {
         callApi("xemttshop/" + id_user, "GET", null).then((res) => {
             if(res.status == "error")
@@ -39,9 +39,15 @@ export const actAllInfoShopRequest = (id_user) => {
             else
             {
                 dispatch(infor(res.data.shop));
-                console.log("Thong tin shop : " + res.data.shop);
-                callApi("xemspshopuser/" + id_user + "?page=4", "GET", null).then((res) => {
-                    dispatch(actShopGetProduct(res.data.spshopuser.data));
+                console.log("Thong tin shop : " + res.data.shop.id);
+
+                // xemspshopuser bi loi rồi 
+                // callApi("xemspshopuser/" + id_user + "?page="+ page, "GET", null).then((res) => {
+                //     dispatch(actShopGetProduct(res.data.spshopuser.data));
+                // });
+                callApi("xemspshop/15"+ "?page="+ page, "GET", null).then((res) => {
+                    console.log(res.data);
+                    dispatch(actShopGetProduct(res.data.sanphamshop.data));
                 });
 
             }

@@ -11,12 +11,7 @@ import {
   FlatList,
 } from "react-native";
 import { connect } from "react-redux";
-import {
-  actShopGetProductRequest,
-  actDSShopGetRequest,
-  inforshop,
-  actInforShopRequest,
-} from "./../../../action/ShopAction";
+import { actAllInfoShopRequest } from "./../../../action/ShopAction";
 
 const url = "http://vaomua.club/public/user/image/images/";
 
@@ -46,7 +41,7 @@ class Detail extends Component {
     } = styles;
     const { navigation } = this.props;
     const { b } = this.props;
-    
+
     if (this.state.isLoading == true)
       return <ActivityIndicator size="large" color="#0000ff" />;
     else
@@ -83,8 +78,13 @@ class Detail extends Component {
                 }}
               >
                 <Image
-                //2 nơi lưu ảnh nên phải làm thế này
-                  source={{ uri: e.sanpham_anh_app == null ? `${url}${e.sanpham_anh}` : `${'http://'}${e.sanpham_anh_app}`}}
+                  //2 nơi lưu ảnh nên phải làm thế này
+                  source={{
+                    uri:
+                      e.sanpham_anh_app == null
+                        ? `${url}${e.sanpham_anh}`
+                        : e.sanpham_anh_app,
+                  }}
                   style={productImage}
                 />
                 <Text style={productName}>{e.sanpham_ten.toUpperCase()}</Text>
@@ -97,10 +97,63 @@ class Detail extends Component {
               </TouchableOpacity>
             ))}
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
-            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
-            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.GetInforShop(this.props.user.infoUser.id, 1)
+              }
+              style={{
+                borderWidth: 1,
+                borderColor: "black",
+                padding: 5,
+                borderRadius: 5,
+                margin: 4,
+              }}
+            >
+              <Text>1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.GetInforShop(this.props.user.infoUser.id, 2)
+              }
+              style={{
+                borderWidth: 1,
+                borderColor: "black",
+                padding: 5,
+                borderRadius: 5,
+                margin: 4,
+              }}
+            >
+              <Text>2</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.GetInforShop(this.props.user.infoUser.id, 3)
+              }
+              style={{
+                borderWidth: 1,
+                borderColor: "black",
+                padding: 5,
+                borderRadius: 5,
+                margin: 4,
+              }}
+            >
+              <Text>3</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.GetInforShop(this.props.user.infoUser.id, 4)
+              }
+              style={{
+                borderWidth: 1,
+                borderColor: "black",
+                padding: 5,
+                borderRadius: 5,
+                margin: 4,
+              }}
+            >
+              <Text>4</Text>
+            </TouchableOpacity>
           </View>
         </View>
       );
@@ -115,9 +168,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ShopGetProduct: (id) => dispatch(actShopGetProductRequest(id)),
-    GetDSShop: () => dispatch(actDSShopGetRequest()),
-    GetInforShop: (u) => dispatch(actInforShopRequest(u)),
+    GetInforShop: (id_user, page) =>
+      dispatch(actAllInfoShopRequest(id_user, page)),
   };
 };
 

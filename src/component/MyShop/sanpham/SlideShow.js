@@ -10,18 +10,14 @@ import {
 } from "react-native";
 import Swiper from "react-native-swiper";
 
-import littleIcon from "../../../../media/temp/little.jpg";
+import littleIcon from "../../../media/temp/little.jpg";
 import { connect } from "react-redux";
-import { actFetchCategory } from "../../../../action/GategoryAction";
+import { actFetchCategory } from "../../../action/GategoryAction";
 const { height, width } = Dimensions.get("window");
-//const url = 'http://vaomua.club/public/user/image/images/';
-import { actFetchCategoryRequest } from "../../../../action/GategoryAction";
+const url = "http://vaomua.club/public/user/image/images/";
+import { actFetchCategoryRequest } from "../../../action/GategoryAction";
 
 class Category extends Component {
-  gotoListProduct() {
-    const { navigation } = this.props;
-    navigation.push("ListProduct");
-  }
   componentDidMount() {
     this.props.FetchCategory();
   }
@@ -37,10 +33,7 @@ class Category extends Component {
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
             {slide.map((e) => (
-              <TouchableOpacity
-                onPress={this.gotoListProduct.bind(this)}
-                key={e.sanpham_anh_app}
-              >
+              <TouchableOpacity key={e.sanpham_anh_app}>
                 <ImageBackground
                   source={{
                     uri:

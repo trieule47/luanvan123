@@ -3,8 +3,8 @@ import callApi from '../network/apiCaller';
 
 export const actFetchCategoryRequest = () => {
     return (dispatch) => {
-        return callApi('slide', 'GET', null).then(res => {
-            dispatch(actFetchCategory(res.data.top))
+        return callApi('slide/15', 'GET', null).then(res => {
+            dispatch(actFetchCategory(res.data.slide))
         });
     };
 }

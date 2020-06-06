@@ -18,8 +18,8 @@ import {
     actAllInfoShopRequest
 } from "../../../action/ShopAction";
 
-import Colection from "../../Main/Shop/Home/Category";
-
+//import Colection from "../../Main/Shop/Home/Category";
+import Colection from "./SlideShow";
 const url = "http://vaomua.club/public/user/image/images/";
 
 class SanPham extends Component {
@@ -31,8 +31,7 @@ class SanPham extends Component {
 
     }
     componentDidMount() {
-
-        this.props.GetInforShop(this.props.user.infoUser.id);
+        this.props.GetInforShop(this.props.user.infoUser.id,1);
         console.log("ALO LAO " + this.props.user.infoUser.id);
     }
 
@@ -82,7 +81,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInforShop: (id_user) => dispatch(actAllInfoShopRequest(id_user)),
+        GetInforShop: (id_user,page) => dispatch(actAllInfoShopRequest(id_user,page)),
     };
 };
 
