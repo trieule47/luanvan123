@@ -51,22 +51,22 @@ class SanPham extends Component {
         return (
             <View>
                 <Header a={myshop.inforShop} navigation={this.props.navigation} />
-                <ScrollView>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                    <TouchableOpacity style={btnThem} onPress={()=> navigation.navigate('AddProduct')}>
-                        <Text style={{color: '#FFF'}}>Thêm sản phẩm</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={btnThem1} onPress={()=> navigation.navigate('ThongTinShop')}>
-                        <Text style={{color: '#FFF'}}>Thông tin shop</Text>
-                    </TouchableOpacity>
-                </View>
-                <Colection />
-                <View style={container}>
-                    <View style={titleContainer}>
-                        <Text style={title}>My PRODUCT</Text>
+                <ScrollView style={{marginBottom: 80}}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <TouchableOpacity style={btnThem} onPress={()=> navigation.navigate('AddProduct')}>
+                            <Text style={{color: '#FFF'}}>Thêm sản phẩm</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={btnThem1} onPress={()=> navigation.navigate('ThongTinShop')}>
+                            <Text style={{color: '#FFF'}}>Thông tin shop</Text>
+                        </TouchableOpacity>
                     </View>
-                    <Detail b={myshop.sanphamshop} navigation={this.props.navigation} />
-                </View>
+                    <Colection />
+                    <View style={container}>
+                        <View style={titleContainer}>
+                            <Text style={title}>My PRODUCT</Text>
+                        </View>
+                        <Detail b={myshop.sanphamshop} navigation={this.props.navigation} />
+                    </View>
                 </ScrollView>
             </View>
         );

@@ -39,8 +39,8 @@ export const actAllInfoShopRequest = (id_user) => {
             else
             {
                 dispatch(infor(res.data.shop));
-                console.log("Thong tin shop : " + res.shop);
-                callApi("xemspshopuser/" + id_user, "GET", null).then((res) => {
+                console.log("Thong tin shop : " + res.data.shop);
+                callApi("xemspshopuser/" + id_user + "?page=4", "GET", null).then((res) => {
                     dispatch(actShopGetProduct(res.data.spshopuser.data));
                 });
 
@@ -67,21 +67,17 @@ export const actShopGetProduct = (data) => {
 };
 
 //================== Thêm Sản phẩm cho shop =================================
-export const actAddProductRequest = (infor) => {
+export const actAddProductRequest = (infor,id_user) => {
     return (dispatch) => {
-        return callApi("addpr", "POST", infor).then((res) => {
-            // console.log("thoong tin sanr phamar "+JSON.stringify(res.data.sanpham))
-            dispatch(AddProduct(res.data.sanpham));
-        });
+      return callApi("addpr", "POST", infor).then(res => {
+          if(res.data.status == 'Thành công'){
+            callApi("xemspshopuser/"+ id_user + "?page=4", "GET", null).then(res => {
+              dispatch(actShopGetProduct(res.data.spshopuser.data));
+            });
+            Alert.alert("Thông báo ! ","Thêm sản phẩm thành công");
+          }else{
+            Alert.alert("Thông báo ! ","Thêm sản phẩm thất bại");
+          }
+      })
     };
-};
-export const AddProduct = (data) => {
-    return {
-        type: types.ADD_PRODUCT,
-        sanphamdathem: data,
-    };
-<<<<<<< HEAD
-};
-=======
-};
->>>>>>> 9ffd8a9173bd77cba50dc3af4546b25c16a6129f
+  };

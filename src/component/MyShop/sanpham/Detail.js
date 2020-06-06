@@ -28,16 +28,9 @@ class Detail extends Component {
     };
   }
   componentDidMount() {
-    // console.log('myshop product: '+ JSON.stringify(this.props.myshop.sanphamshop));
-   // console.log("hggfggg :" + this.props.myshop.inforShop.id);
-   // this.props.ShopGetProduct(this.props.myshop.inforShop.id);
-    //console.log(
-   //   "myshop product: " + JSON.stringify(this.props.myshop.sanphamshop)
-    // );
     this.setState({
       isLoading: this.props.myshop.isLoading,
     });
-    // console.log("A:" + JSON.stringify(this.props.b[0]));
   }
 
   render() {
@@ -59,51 +52,56 @@ class Detail extends Component {
     else
       return (
         <View>
-        <View style={body}>
-          {/* <FlatList
-            data={b}
-            renderItem={({ item }) => (
-              <TouchableOpacity style={productContainer} >
+          <View style={body}>
+            {/* <FlatList
+              data={b}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={productContainer} >
+                  <Image
+                    source={{ uri: `${url}${item.sanpham_anh}` }}
+                    style={productImage}
+                  />
+                  <Text style={productName}>{item.sanpham_ten.toUpperCase()}</Text>
+                  <Text style={productPrice}>
+                    {item.gia_tien
+                      .toString()
+                      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}
+                    VNĐ
+                  </Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.id}
+            /> */}
+            {this.props.b.map((e) => (
+              <TouchableOpacity
+                style={productContainer}
+                key={e.id}
+                onPress={() => {
+                  navigation.navigate("ChiTiet", {
+                    product: e,
+                  });
+                }}
+              >
                 <Image
-                  source={{ uri: `${url}${item.sanpham_anh}` }}
+                //2 nơi lưu ảnh nên phải làm thế này
+                  source={{ uri: e.sanpham_anh_app == null ? `${url}${e.sanpham_anh}` : `${'http://'}${e.sanpham_anh_app}`}}
                   style={productImage}
                 />
-                <Text style={productName}>{item.sanpham_ten.toUpperCase()}</Text>
+                <Text style={productName}>{e.sanpham_ten.toUpperCase()}</Text>
                 <Text style={productPrice}>
-                  {item.gia_tien
+                  {e.gia_tien
                     .toString()
                     .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}
                   VNĐ
                 </Text>
               </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item.id}
-          /> */}
-          {this.props.b.map((e) => (
-            <TouchableOpacity
-              style={productContainer}
-              key={e.id}
-              onPress={() => {
-                navigation.navigate("ChiTiet", {
-                  product: e,
-                });
-              }}
-            >
-              <Image
-              //2 nơi lưu ảnh nên phải làm thế này
-                source={{ uri: e.sanpham_anh_app == null ? `${url}${e.sanpham_anh}` : `${'http://'}${e.sanpham_anh_app}`}}
-                style={productImage}
-              />
-              <Text style={productName}>{e.sanpham_ten.toUpperCase()}</Text>
-              <Text style={productPrice}>
-                {e.gia_tien
-                  .toString()
-                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}
-                VNĐ
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+            ))}
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+            <TouchableOpacity style={{borderWidth:1 , borderColor: 'black' ,padding:5, borderRadius:5 ,margin: 4 }}><Text>1</Text></TouchableOpacity>
+          </View>
         </View>
       );
   }
