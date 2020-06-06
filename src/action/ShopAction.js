@@ -39,6 +39,7 @@ export const actAllInfoShopRequest = (id_user, page) => {
             else
             {
                 dispatch(infor(res.data.shop));
+<<<<<<< HEAD
                 console.log("Thong tin shop : " + res.data.shop.id);
 
                 // xemspshopuser bi loi rồi 
@@ -48,6 +49,15 @@ export const actAllInfoShopRequest = (id_user, page) => {
                 callApi("xemspshop/15"+ "?page="+ page, "GET", null).then((res) => {
                     console.log(res.data);
                     dispatch(actShopGetProduct(res.data.sanphamshop.data));
+=======
+                const id_shop = res.data.shop.id;
+                console.log("Thong tin shop : " + res.data.shop);
+                callApi("xemspshop/" + id_shop + "?page=1", "GET", null).then((res) => {
+                    dispatch(actShopGetProduct(res.data.sanphamshop.data));
+                });
+                callApi('slide/' + id_shop, 'GET', null).then(res => {
+                    dispatch(actFetchBannerShop(res.data.slide));
+>>>>>>> hoang cap nhat
                 });
 
             }
@@ -72,6 +82,12 @@ export const actShopGetProduct = (data) => {
     };
 };
 
+export const actFetchBannerShop= (item) => {
+    return {
+        type : types.GET_SLIDE,
+        item
+    }
+}
 //================== Thêm Sản phẩm cho shop =================================
 export const actAddProductRequest = (infor,id_user) => {
     return (dispatch) => {

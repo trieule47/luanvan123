@@ -47,13 +47,20 @@ class Detail extends Component {
     else
       return (
         <View>
-          <View style={body}>
-            {/* <FlatList
-              data={b}
+ 
+            <FlatList
+              numColumns={2}
+              data={this.props.b}
               renderItem={({ item }) => (
-                <TouchableOpacity style={productContainer} >
+                <TouchableOpacity style={productContainer}
+                  onPress={() => {
+                  navigation.navigate("ChiTiet", {
+                    product: item,
+                  });
+                }}
+                 >
                   <Image
-                    source={{ uri: `${url}${item.sanpham_anh}` }}
+                    source={{ uri: item.sanpham_anh_app == null ? `${url}${item.sanpham_anh}` : `${'http://'}${item.sanpham_anh_app}`}}
                     style={productImage}
                   />
                   <Text style={productName}>{item.sanpham_ten.toUpperCase()}</Text>
@@ -66,8 +73,8 @@ class Detail extends Component {
                 </TouchableOpacity>
               )}
               keyExtractor={(item) => item.id}
-            /> */}
-            {this.props.b.map((e) => (
+            />
+            {/* {this.props.b.map((e) => (
               <TouchableOpacity
                 style={productContainer}
                 key={e.id}
@@ -95,6 +102,7 @@ class Detail extends Component {
                   VNĐ
                 </Text>
               </TouchableOpacity>
+<<<<<<< HEAD
             ))}
           </View>
           <View style={{ flexDirection: "row" }}>
@@ -155,6 +163,10 @@ class Detail extends Component {
               <Text>4</Text>
             </TouchableOpacity>
           </View>
+=======
+            ))} */}
+ 
+>>>>>>> hoang cap nhat
         </View>
       );
   }
@@ -176,13 +188,13 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);
 
 const { width } = Dimensions.get("window");
-const productWidth = (width - 60) / 2;
+const productWidth = (width - 10) / 2;
 const productImageHeight = (productWidth / 361) * 425;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFF",
-    margin: 5,
+    margin: 0,
     shadowColor: "#2E272B",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
@@ -197,7 +209,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   body: {
-    flexDirection: "row",
+    flexDirection: 'column',
     justifyContent: "space-around",
     flexWrap: "wrap",
   },
@@ -206,6 +218,9 @@ const styles = StyleSheet.create({
     shadowColor: "#2E272B",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
+    paddingTop: 10,
+
+    paddingRight: 10,
     paddingBottom: 10,
   },
   productImage: {
