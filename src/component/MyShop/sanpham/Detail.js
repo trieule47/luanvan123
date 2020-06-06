@@ -90,7 +90,8 @@ class Detail extends Component {
               }}
             >
               <Image
-                source={{ uri: `${url}${e.sanpham_anh}` }}
+              //2 nơi lưu ảnh nên phải làm thế này
+                source={{ uri: e.sanpham_anh_app == null ? `${url}${e.sanpham_anh}` : `${'http://'}${e.sanpham_anh_app}`}}
                 style={productImage}
               />
               <Text style={productName}>{e.sanpham_ten.toUpperCase()}</Text>

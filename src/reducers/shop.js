@@ -17,9 +17,6 @@ const myshop = (state = initialState, action) => {
             return { ...state, dsshop: action.dsshop}
         case types.GET_INFOR_SHOP:    
             return { ...state, inforShop :action.Shop, idLoading: action.isLoading}
-        case types.ADD_PRODUCT: 
-            console.log('Thêm thành công ' +JSON.stringify(action.sanphamdathem))   
-            return { ...state }
         default: return { ...state};
     }
 }

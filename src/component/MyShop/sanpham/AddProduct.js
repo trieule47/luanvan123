@@ -9,6 +9,16 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+
+import { Camera } from "expo-camera";
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+
 import HTML from "react-native-render-html";
 import { actAddProductRequest } from "./../../../action/ShopAction";
 import { connect } from "react-redux";
@@ -20,20 +30,27 @@ const icLogo = require("../../../media/appIcon/ic_logo.png");
 
 const url = "http://vaomua.club/public/user/image/images/";
 
+const ur =require('../than-dong2.png');
+
 class AddProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      hasPermission: " ",
+      type: " ",
+      sourceImage: " ",
+
       sanPham: {
-        shop_id: "",
-        lohang_id: "",
+        shop_id: "15",
+        lohang_id: "23",
         sanpham_ten: "",
-        sanpham_anh: "download (23).jpg",
+        sanpham_anh_app: "data:image/png;base64",
         sanpham_mo_ta: "",
         loaisanpham_id: "",
         donvitinh_id: "",
         gia_tien: "250000",
         phan_tram_km: "5",
+        donvi_id:"2",
         active: "1",
         new: "1",
       },
@@ -46,7 +63,7 @@ class AddProduct extends Component {
     this.clearText("txtshop_id");
     this.clearText("txtlohang_id");
     this.clearText("txtsanpham_te");
-    this.clearText("txtsanpham_anh");
+    this.clearText("txtsanpham_anh_app");
     this.clearText("txtsanpham_mo_ta");
     this.clearText("txtloaisanpham_id");
     this.clearText("txtdonvitinh_id");
@@ -64,15 +81,15 @@ class AddProduct extends Component {
   }
 
   ThemSanPham() {
-    this.props.AddProduct(this.state.sanPham);
+    this.props.AddProduct(this.state.sanPham,this.props.user.infoUser.id);
   }
   kiemTra(){
     this.setState({sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
-    console.log('     '+ JSON.stringify(this.state.sanPham))
+    console.log('   kiemtra '+ JSON.stringify(this.state.sanPham))
     if (
-      this.state.sanPham.lohang_id == "" ||
-      this.state.sanPham.sanpham_te == "" ||
-      this.state.sanPham.sanpham_anh == "" ||
+       this.state.sanPham.lohang_id == "" ||
+      this.state.sanPham.sanpham_ten == "" ||
+      this.state.sanPham.sanpham_anh_app == "" ||
       this.state.sanPham.sanpham_mo_ta == "" ||
       this.state.sanPham.loaisanpham_id == "" ||
       this.state.sanPham.donvitinh_id == "" ||
@@ -82,13 +99,64 @@ class AddProduct extends Component {
       Alert.alert("Vui lòng nhập đủ thông tin !");
     } else {
       this.ThemSanPham();
-      //this.clearAllTextInput();
-      Alert.alert("Thêm sản phẩm thành công !");
+      this.clearAllTextInput();
+      
     }
+  }
+  //////ttttttt
+  async componentDidMount() {
+    this.getPermissionAsync()
+  } 
+
+  getPermissionAsync = async () => {
+      // Camera roll Permission 
+      if (Platform.OS === 'ios') {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+      // Camera Permission
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
+      this.setState({ hasPermission: status === 'granted', type: Camera.Constants.Type.back});
+  }
+
+  // setType(){
+  //   const { type } = this.state
+
+  //   this.setState({type:
+  //     type === Camera.Constants.Type.back
+  //     ? Camera.Constants.Type.front
+  //     : Camera.Constants.Type.back
+  //   })
+  // }
+  // takePicture = async () => {
+  //   if (this.camera) {
+  //     const options = { quality: 0.5, base64: true };
+  //     const data = await this.camera.takePictureAsync( options)
+  //       .then(data =>{ this.setState({sourceImage: JSON.stringify(data)})
+  //        //,           console.log("data : "+"  "+ this.state.sourceImage)
+  //       })
+  //       .catch(error => console.log('eror', error));
+  //     console.log('Exiting takePicture()');
+  //   }
+  // };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      base64: true,
+    });
+
+    this.setState({ sourceImage: result});
+    this.setState({
+      sanPham: { ...this.state.sanPham, sanpham_anh_app: result.base64 },
+    })
+    //console.log('data '+ JSON.stringify(this.state.sanPham.sanpham_anh_app) );
   }
   render() {
     const { route, navigation } = this.props;
-
+    const {hasPermission,type,sourceImage}= this.state;
     const {
       wrapper,
       cardStyle,
@@ -168,16 +236,38 @@ class AddProduct extends Component {
               })
             }
           />
-          <TextInput
-            ref={"txtsanpham_anh"}
+
+          {/* <TextInput
+            ref={"txtsanpham_anh_app"}
             style={inputStyle}
-            placeholder="sanpham_anh"
+            placeholder="sanpham_anh_app"
             onChangeText={(text) =>
               this.setState({
-                sanPham: { ...this.state.sanPham, sanpham_anh: text },
+                sanPham: { ...this.state.sanPham, sanpham_anh_app: text },
               })
             }
-          />
+          /> */}
+
+    
+        <View style={{flexDirection:'row'}}>
+          <Image style={{ margin: 10 , height:100 , width:100 }} source={ sourceImage != " " ? sourceImage : ur} />
+          <TouchableOpacity
+          onPress={this.pickImage.bind(this)}
+            style={{
+              alignSelf: "flex-end",
+              alignItems: "center",
+              backgroundColor: "transparent",
+            }}
+          >
+            <Ionicons name="ios-photos" style={{ color: "#111", fontSize: 40 }} />
+          </TouchableOpacity>
+        </View>
+    
+          
+          
+
+
+
           <TextInput
             ref={"txtsanpham_mo_ta"}
             style={inputStyle}
@@ -253,14 +343,15 @@ class AddProduct extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    AddProduct: (infor) => {
-      dispatch(actAddProductRequest(infor));
+    AddProduct: ( infor, user_id ) => {
+      dispatch(actAddProductRequest(infor,user_id));
     },
   };
 };
 
 const mapStateToProps = (state) => {
   return {
+    user:  state.user,
     myshop: state.myshop,
   };
 };
