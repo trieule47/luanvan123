@@ -18,8 +18,13 @@ import {
     actAllInfoShopRequest
 } from "../../../action/ShopAction";
 
+<<<<<<< HEAD
 //import Colection from "../../Main/Shop/Home/Category";
 import Colection from "./SlideShow";
+=======
+import BannerShop from "../BannerShop";
+
+>>>>>>> hoang cap nhat
 const url = "http://vaomua.club/public/user/image/images/";
 
 class SanPham extends Component {
@@ -62,10 +67,10 @@ class SanPham extends Component {
                             <Text style={{color: '#FFF' , textAlign:'center'}}>Thêm lô hang</Text>
                         </TouchableOpacity>
                     </View>
-                    <Colection />
+                    <BannerShop />
                     <View style={container}>
                         <View style={titleContainer}>
-                            <Text style={title}>My PRODUCT</Text>
+                            <Text style={title}>Sản phẩm của bạn</Text>
                         </View>
                         <Detail b={myshop.sanphamshop} navigation={this.props.navigation} />
                     </View>

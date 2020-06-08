@@ -40,10 +40,31 @@ export const actAllInfoShopRequest = (id_user, page, token) => {
             else
             {
                 dispatch(infor(res.data.shop));
+<<<<<<< HEAD
                 console.log("Thong tin shop : " + res.data.shop);
                 const id_shop = res.data.shop.id;
                 callApi("xemspshop/"+id_shop+ "?page="+ page, "GET", null, token).then((res) => {
+=======
+<<<<<<< HEAD
+                console.log("Thong tin shop : " + res.data.shop.id);
+
+                // xemspshopuser bi loi rồi 
+                // callApi("xemspshopuser/" + id_user + "?page="+ page, "GET", null).then((res) => {
+                //     dispatch(actShopGetProduct(res.data.spshopuser.data));
+                // });
+                callApi("xemspshop/15"+ "?page="+ page, "GET", null).then((res) => {
+                    console.log(res.data);
+>>>>>>> 1187718ddc327cd636a5bc1bd24003bb4d97cf8a
                     dispatch(actShopGetProduct(res.data.sanphamshop.data));
+=======
+                const id_shop = res.data.shop.id;
+                console.log("Thong tin shop : " + res.data.shop);
+                callApi("xemspshop/" + id_shop + "?page=1", "GET", null).then((res) => {
+                    dispatch(actShopGetProduct(res.data.sanphamshop.data));
+                });
+                callApi('slide/' + id_shop, 'GET', null).then(res => {
+                    dispatch(actFetchBannerShop(res.data.slide));
+>>>>>>> hoang cap nhat
                 });
                 callApi('slide/' + id_shop, 'GET', null).then(res => {
                     dispatch(actFetchBannerShop(res.data.slide));
@@ -78,7 +99,10 @@ export const actFetchBannerShop= (item) => {
         item
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1187718ddc327cd636a5bc1bd24003bb4d97cf8a
 //================== Thêm Sản phẩm cho shop =================================
 export const actAddProductRequest = (infor,id_shop, token) => {
     return (dispatch) => {
