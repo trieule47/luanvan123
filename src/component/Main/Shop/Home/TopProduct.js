@@ -34,12 +34,11 @@ class TopProduct extends Component {
                     <Text style={title}>Sản phẩm nổi bật</Text>
                 </View>
                 <View style={body}>
-                    {topproducts.map(e => (
+                    {topproducts.topproduct.map(e => (
                         <TouchableOpacity style={productContainer}
                             onPress={() => {
                                 navigation.navigate('ProductDetail', {
                                     product: e,
-
                                 })
                             }}
                             key={e.id}>

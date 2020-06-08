@@ -15,3 +15,18 @@ export const actFetchTopProducts = (item) => {
         item
     }
 }
+
+export const actAllProductsRequest = (page=1) => {
+    return (dispatch) => {
+        return callApi('product?page=' + page , 'GET', null).then(res => {
+            dispatch(actAllProducts(res.data.sanpham.data))
+        });
+    };
+}
+
+export const actAllProducts = (item) => {
+    return {
+        type : types.FETCH_ALL_PRODUCT,
+        item
+    }
+}

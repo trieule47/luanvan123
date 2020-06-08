@@ -5,9 +5,9 @@ import * as RootNavigation from "../navigation/RootNavigation";
 
 
 //================== Đăng kí mở shop =================================
-export const actShopSignUpRequest = (info) => {
+export const actShopSignUpRequest = (info,token) => {
     return (dispatch) => {
-        callApi("dkshop", "POST", info).then((res) => {
+        callApi("dkshop", "POST", info,token).then((res) => {
             console.log("res : ? " + res.data);
             if (res.data.status == "err") {
                 dispatch(actShopSignUp([], "error"));
@@ -29,9 +29,10 @@ export const actShopSignUp = (info) => {
     };
 };
 //================== Lấy hết thông tin shop + sản phẩm =================================
-export const actAllInfoShopRequest = (id_user, page) => {
+export const actAllInfoShopRequest = (id_user, page, token) => {
     return (dispatch) => {
-        callApi("xemttshop/" + id_user, "GET", null).then((res) => {
+        callApi("xemttshop/" + id_user, "GET", null, token).then((res) => {
+            console.log("ressss" + res);
             if(res.status == "error")
             {
                 Alert.alert("Tài khoản chưa đăng kí mở shop");
@@ -39,15 +40,13 @@ export const actAllInfoShopRequest = (id_user, page) => {
             else
             {
                 dispatch(infor(res.data.shop));
-                console.log("Thong tin shop : " + res.data.shop.id);
-
-                // xemspshopuser bi loi rồi 
-                // callApi("xemspshopuser/" + id_user + "?page="+ page, "GET", null).then((res) => {
-                //     dispatch(actShopGetProduct(res.data.spshopuser.data));
-                // });
-                callApi("xemspshop/15"+ "?page="+ page, "GET", null).then((res) => {
-                    console.log(res.data);
+                console.log("Thong tin shop : " + res.data.shop);
+                const id_shop = res.data.shop.id;
+                callApi("xemspshop/"+id_shop+ "?page="+ page, "GET", null, token).then((res) => {
                     dispatch(actShopGetProduct(res.data.sanphamshop.data));
+                });
+                callApi('slide/' + id_shop, 'GET', null).then(res => {
+                    dispatch(actFetchBannerShop(res.data.slide));
                 });
 
             }
@@ -60,7 +59,7 @@ export const infor = (data) => {
     return {
         type: types.GET_INFOR_SHOP,
         data,
-        isLoading: false,
+       
     };
 };
 
@@ -69,16 +68,24 @@ export const actShopGetProduct = (data) => {
     return {
         type: types.GET_PRODUCT,
         data,
+        isLoading: false,
     };
 };
 
+export const actFetchBannerShop= (item) => {
+    return {
+        type : types.GET_SLIDE,
+        item
+    }
+}
+
 //================== Thêm Sản phẩm cho shop =================================
-export const actAddProductRequest = (infor,id_user) => {
+export const actAddProductRequest = (infor,id_shop, token) => {
     return (dispatch) => {
-      return callApi("addpr", "POST", infor).then(res => {
+      return callApi("addpr", "POST", infor, token).then(res => {
           if(res.data.status == 'Thành công'){
-            callApi("xemspshopuser/"+ id_user + "?page=4", "GET", null).then(res => {
-              dispatch(actShopGetProduct(res.data.spshopuser.data));
+            callApi("xemspshop/"+ id_shop + "?page=1", "GET", null,token).then(res => {
+              dispatch(actShopGetProduct(res.data.sanphamshop.data));
             });
             Alert.alert("Thông báo ! ","Thêm sản phẩm thành công");
           }else{
@@ -87,3 +94,21 @@ export const actAddProductRequest = (infor,id_user) => {
       })
     };
   };
+// ================= lấy tt tất cả các shop==================
+export const actGetDSShopRequest = () => {
+    return (dispatch) => {
+      return callApi("dsshop", "GET", null, null).then(res => {
+        if(res.data.shop != null){
+            dispatch(actGetDSShop(res.data.shop));
+          }else{
+            Alert.alert("Thông báo ! ","Lấy ds shop thất bại");
+          }
+      })
+    };
+};
+export const actGetDSShop= (dsshop) => {
+    return {
+        type : types.GET_DS_SHOP,
+        dsshop
+    }
+}

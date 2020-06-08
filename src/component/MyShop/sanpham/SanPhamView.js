@@ -31,7 +31,7 @@ class SanPham extends Component {
 
     }
     componentDidMount() {
-        this.props.GetInforShop(this.props.user.infoUser.id,1);
+        this.props.GetInforShop(this.props.user.infoUser.id,1,this.props.user.token);
         console.log("ALO LAO " + this.props.user.infoUser.id);
     }
 
@@ -53,10 +53,13 @@ class SanPham extends Component {
                 <ScrollView style={{marginBottom: 80}}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
                         <TouchableOpacity style={btnThem} onPress={()=> navigation.navigate('AddProduct')}>
-                            <Text style={{color: '#FFF'}}>Thêm sản phẩm</Text>
+                            <Text style={{color: '#FFF' , textAlign:'center'}}>Thêm sản phẩm</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={btnThem1} onPress={()=> navigation.navigate('ThongTinShop')}>
-                            <Text style={{color: '#FFF'}}>Thông tin shop</Text>
+                            <Text style={{color: '#FFF' , textAlign:'center'}}>Thông tin shop</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={btnThem} onPress={()=> navigation.navigate('ThemLoHang')}>
+                            <Text style={{color: '#FFF' , textAlign:'center'}}>Thêm lô hang</Text>
                         </TouchableOpacity>
                     </View>
                     <Colection />
@@ -81,7 +84,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInforShop: (id_user,page) => dispatch(actAllInfoShopRequest(id_user,page)),
+        GetInforShop: (id_user,page,token) => dispatch(actAllInfoShopRequest(id_user,page,token)),
     };
 };
 
@@ -138,7 +141,6 @@ const styles = StyleSheet.create({
     },
     btnThem :{
         height: 50,
-        width: 200,
         borderWidth: 1,
         borderRadius: 5,
         textAlign: 'justify',
@@ -146,14 +148,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'flex-start',
         flex: 1,
-        paddingLeft: 45,
         backgroundColor: '#2CBE4E',
         borderColor: '#FFF',
-        marginLeft: 4
     },
     btnThem1:{
         height: 50,
-        width: 200,
+        flex:1,
         borderWidth: 1,
         borderRadius: 5,
         textAlign: 'justify',
@@ -161,9 +161,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'flex-start',
         flex: 1,
-        paddingLeft: 45,
         backgroundColor: '#2CBE4E',
         borderColor: '#FFF',
-        marginRight: 3,
     },  
 });

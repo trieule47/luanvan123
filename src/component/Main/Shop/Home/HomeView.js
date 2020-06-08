@@ -43,7 +43,7 @@ export default class Home extends Component {
             <View style={{ backgroundColor: '#DBDBD8', flex: 1 }}>
                 <Header onOpen={() => { this.openMenu() }} />
                 <ScrollView>
-                    <Colection />
+                    <Colection navigation={this.props.navigation}/>
                     <Category navigation={this.props.navigation} types={types} />
                     <TopProduct navigation={this.props.navigation}/>
                 </ScrollView>

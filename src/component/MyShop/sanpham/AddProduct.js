@@ -44,10 +44,10 @@ class AddProduct extends Component {
         shop_id: "15",
         lohang_id: "23",
         sanpham_ten: "",
-        sanpham_anh_app: "data:image/png;base64",
+        sanpham_anh_app: "",
         sanpham_mo_ta: "",
-        loaisanpham_id: "",
-        donvitinh_id: "",
+        loaisanpham_id: "8",
+        donvitinh_id: "1",
         gia_tien: "250000",
         phan_tram_km: "5",
         donvi_id:"2",
@@ -81,11 +81,11 @@ class AddProduct extends Component {
   }
 
   ThemSanPham() {
-    this.props.AddProduct(this.state.sanPham,this.props.user.infoUser.id);
+    this.props.AddProduct(this.state.sanPham,this.props.user.infoUser.id,this.props.user.token);
   }
   kiemTra(){
     this.setState({sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
-    console.log('   kiemtra '+ JSON.stringify(this.state.sanPham))
+    //console.log('   kiemtra '+ JSON.stringify(this.state.sanPham))
     if (
        this.state.sanPham.lohang_id == "" ||
       this.state.sanPham.sanpham_ten == "" ||
@@ -263,11 +263,6 @@ class AddProduct extends Component {
           </TouchableOpacity>
         </View>
     
-          
-          
-
-
-
           <TextInput
             ref={"txtsanpham_mo_ta"}
             style={inputStyle}
@@ -337,14 +332,19 @@ class AddProduct extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <Text style={title1Style}>
+           <Text style={{color:'yellow'}}>warnning </Text>            
+            HÃY ĐẢM BẢO ĐIỀN ĐẦY ĐỦ THÔNG TIN SẢN PHẨM MÀ BẠN MUỐN THÊM TRƯỚC KHI BẤM VÀO NÚT THÊM
+            thanks you!
+          </Text>
       </ScrollView>
     );
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    AddProduct: ( infor, user_id ) => {
-      dispatch(actAddProductRequest(infor,user_id));
+    AddProduct: ( infor, user_id ,token) => {
+      dispatch(actAddProductRequest(infor,user_id,token));
     },
   };
 };
@@ -375,9 +375,10 @@ const styles = StyleSheet.create({
   },
   iconStyle: { width: 30, height: 30 },
   titleStyle: { color: "#FFF", fontSize: 30 },
-  title1Style: { color: "#FFF", fontSize: 20, textAlign: "center" },
+  title1Style: { color: "#FFF", fontSize: 20, textAlign: "center" ,marginBottom:50 },
   controlStyle: {
     flexDirection: "row",
+  
   },
   inactiveStyle: {
     color: "#D7D7D7",

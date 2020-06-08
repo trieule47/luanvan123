@@ -23,7 +23,7 @@ class Category extends Component {
     navigation.push("ListProduct");
   }
   componentDidMount() {
-    this.props.FetchCategory();
+    this.props.FetchCategory(this.props.user.token);
   }
   render() {
     const { slide } = this.props;
@@ -64,13 +64,14 @@ class Category extends Component {
 const mapStateTopProps = (state) => {
   return {
     slide: state.slide,
+    user: state.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    FetchCategory: () => {
-      dispatch(actFetchCategoryRequest());
+    FetchCategory: (token) => {
+      dispatch(actFetchCategoryRequest(token));
     },
   };
 };

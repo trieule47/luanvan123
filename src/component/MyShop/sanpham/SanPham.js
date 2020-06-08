@@ -4,7 +4,8 @@ import SanPhamView from './SanPhamView';
 import ChiTiet from './ChiTiet';
 import sua from './sua';
 import AddProduct from './AddProduct';
-import ThongTinShop from '../ThongTinShop';
+import ThongTinShop from './ThongTinShop';
+import AddLoHang from './AddLoHang';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ function MyStack() {
       <Stack.Screen name="sua" component={sua} />
       <Stack.Screen name="AddProduct" component={AddProduct} />
       <Stack.Screen name="ThongTinShop" component={ThongTinShop} />
+      <Stack.Screen name="ThemLoHang" component={AddLoHang} />
     </Stack.Navigator>
   );
 }

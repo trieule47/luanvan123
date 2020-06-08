@@ -15,14 +15,12 @@ import { connect } from "react-redux";
 import { actFetchCategory } from "../../../action/GategoryAction";
 const { height, width } = Dimensions.get("window");
 const url = "http://vaomua.club/public/user/image/images/";
-import { actFetchCategoryRequest } from "../../../action/GategoryAction";
+
 
 class Category extends Component {
-  componentDidMount() {
-    this.props.FetchCategory();
-  }
+  
   render() {
-    const { slide } = this.props;
+    const { myshop } = this.props;
     // console.log(" slide: " + slide);
     const { wrapper, textStyle, imageStyle, cateTitle } = styles;
     return (
@@ -32,7 +30,7 @@ class Category extends Component {
         </View>
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
-            {slide.map((e) => (
+            {myshop.slide_shop.map((e) => (
               <TouchableOpacity key={e.sanpham_anh_app}>
                 <ImageBackground
                   source={{
@@ -43,7 +41,7 @@ class Category extends Component {
                   }}
                   style={imageStyle}
                 >
-                  {/* <Text style={cateTitle} >{e.id}</Text> */}
+                  <Text style={cateTitle} >{e.sanpham_ten}</Text>
                 </ImageBackground>
               </TouchableOpacity>
             ))}
@@ -56,18 +54,12 @@ class Category extends Component {
 
 const mapStateTopProps = (state) => {
   return {
-    slide: state.slide,
+    myshop: state.myshop,
+    user: state.user,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    FetchCategory: () => {
-      dispatch(actFetchCategoryRequest());
-    },
-  };
-};
-export default connect(mapStateTopProps, mapDispatchToProps)(Category);
+export default connect(mapStateTopProps, null)(Category);
 
 const imageWidth = width - 30;
 const imageHeight = (imageWidth / 933) * 465;

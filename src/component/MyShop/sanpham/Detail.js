@@ -100,7 +100,7 @@ class Detail extends Component {
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 1)
+                this.props.GetInforShop(this.props.user.infoUser.id, 1,this.props.user.token)
               }
               style={{
                 borderWidth: 1,
@@ -114,7 +114,7 @@ class Detail extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 2)
+                this.props.GetInforShop(this.props.user.infoUser.id, 2,this.props.user.token)
               }
               style={{
                 borderWidth: 1,
@@ -128,7 +128,7 @@ class Detail extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 3)
+                this.props.GetInforShop(this.props.user.infoUser.id, 3,this.props.user.token)
               }
               style={{
                 borderWidth: 1,
@@ -142,7 +142,7 @@ class Detail extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 4)
+                this.props.GetInforShop(this.props.user.infoUser.id, 4,this.props.user.token)
               }
               style={{
                 borderWidth: 1,
@@ -168,8 +168,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetInforShop: (id_user, page) =>
-      dispatch(actAllInfoShopRequest(id_user, page)),
+    GetInforShop: (id_user, page,token) =>
+      dispatch(actAllInfoShopRequest(id_user, page, token)),
   };
 };
 

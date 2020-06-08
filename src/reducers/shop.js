@@ -4,7 +4,8 @@ const initialState = {
     inforShop: [],
     dsshop: [],
     sanphamshop: [],
-    thongbao: [],
+    slide_shop: [],
+    idLoading:[],
 };
 
 const myshop = (state = initialState, action) => {
@@ -12,11 +13,13 @@ const myshop = (state = initialState, action) => {
         case types.SHOP_SIGN_UP:
             return { ...state, inforShop: action.info }
         case types.GET_INFOR_SHOP:
-            return { ...state, inforShop: action.data, idLoading: action.isLoading }
+            return { ...state, inforShop: action.data }
         case types.GET_PRODUCT:
-            return { ...state, sanphamshop: action.data}
+            return { ...state, sanphamshop: action.data , idLoading: action.isLoading }
         case types.GET_DS_SHOP:
-            return { ...state, dsshop: action.dsshop}
+            return { ...state, dsshop: action.dsshop }
+        case types.GET_SLIDE:
+            return  {...state, slide_shop : action.item }
         default: return { ...state};
     }
 }

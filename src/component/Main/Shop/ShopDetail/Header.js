@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import { View, Text, Dimensions, Image, StyleSheet, Button } from 'react-native'
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler'
-import * as RootNavigation from '../../navigation/RootNavigation'
-import icLogo from '../../media/appIcon/ic_logo.png';
-import icback from '../../media/appIcon/back_white.png';
+import * as RootNavigation from '../../../../navigation/RootNavigation'
+import icLogo from '../../../../media/appIcon/ic_logo.png';
+import icback from '../../../../media/appIcon/back_white.png';
 
 const { height } = Dimensions.get('window');
 const url = "http://vaomua.club/public/user/image/images/";
 
 export default class Header extends Component {
     render() {
-        const { a, navigation } = this.props;
+
+        const {  navigation,a} = this.props;
+       
+
         const { wrapper, row1, textIput, iconStyle, titleStyle } = styles;
+        console.log('e :' + JSON.stringify(shop))
         return (
             <View style={{ wrapper, backgroundColor: '#34B089', padding: 10  }}>
                 <View style={row1}>
@@ -24,7 +28,7 @@ export default class Header extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={row1}>
-                <Text  style = {titleStyle}>{a.tenshop}</Text>
+                <Text  style = {titleStyle}></Text>
                 </View>
             </View>
         )
