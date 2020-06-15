@@ -63,11 +63,7 @@ class Chitiet extends Component {
               <ScrollView>
                   <View style={imageContainer}>
                       <View style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
-<<<<<<< HEAD
-                              <Image source={{ uri: e.sanpham_anh_app == null ? `${url}${e.sanpham_anh}` : e.sanpham_anh_app, }} style={productImageStyle} />
-=======
                               <Image source={{ uri: product.sanpham_anh_app == null ? `${url}${product.sanpham_anh}` : product.sanpham_anh_app }} style={productImageStyle} />
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
                       </View>
                   </View>
                   <View style={footer}>

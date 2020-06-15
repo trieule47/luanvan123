@@ -12,11 +12,7 @@ import Swiper from "react-native-swiper";
 
 import littleIcon from "../../../../media/temp/little.jpg";
 import { connect } from "react-redux";
-<<<<<<< HEAD
 import { getSlideShop } from "../../../../action/ColectionAction";
-=======
-import { getSlideShop } from "../../../../action/ShopAction";
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
 const { height, width } = Dimensions.get("window");
 const url = "http://vaomua.club/public/user/image/images/";
 
@@ -28,11 +24,7 @@ class SlideShop extends Component {
     //console.log('slide shop: '+ this.props.myshop.slide_shop);
   }
   render() {
-<<<<<<< HEAD
     const { colection, id_shop } = this.props;
-=======
-    const { myshop, id_shop } = this.props;
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
      //console.log(" slide: " + JSON.stringify(myshop.slide_shop));
     const { wrapper, textStyle, imageStyle, cateTitle } = styles;
     return (
@@ -42,11 +34,7 @@ class SlideShop extends Component {
         </View>
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
-<<<<<<< HEAD
             { colection.slide_shops.map((e) => (
-=======
-            {myshop.slide_shop.map((e) => (
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
               <TouchableOpacity key={e.sanpham_anh_app}>
                 <ImageBackground
                   source={{
@@ -70,11 +58,7 @@ class SlideShop extends Component {
 
 const mapStateTopProps = (state) => {
   return {
-<<<<<<< HEAD
     colection: state.colection,
-=======
-    myshop: state.myshop,
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
   };
 };
 

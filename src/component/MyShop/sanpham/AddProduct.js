@@ -83,14 +83,8 @@ class AddProduct extends Component {
   ThemSanPham() {
     this.props.AddProduct(this.state.sanPham, this.props.myshop.inforShop.id, this.props.user.token);
   }
-<<<<<<< HEAD
-  kiemTra(){
-   // this.setState({sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
-    //console.log('   kiemtra '+ JSON.stringify(this.state.sanPham))
-=======
   kiemTra() {
     this.setState({ sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     if (
       this.state.sanPham.lohang_id == "" ||
       this.state.sanPham.sanpham_ten == "" ||

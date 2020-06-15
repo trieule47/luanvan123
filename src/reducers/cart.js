@@ -10,7 +10,7 @@ const cart = (state = initialState, action) => {
          var gioHang = {
             "id": action.item.id,
             "sanpham_ten": action.item.sanpham_ten,
-            "qty": action.item.qty,
+            "qty": 1,
             "gia_tien": action.item.gia_tien,
             "weight": 30000,    
             "sanpham_anh_app": action.item.sanpham_anh_app,     

@@ -18,11 +18,7 @@ const myshop = (state = initialState, action) => {
         case types.GET_INFOR_SHOP:
             return { ...state, inforShop: action.data }
         case types.GET_PRODUCT:
-<<<<<<< HEAD
-            return { ...state, sanphamshop: action.data , idLoading: action.isLoading }
-=======
             return { ...state, sanphamshop: action.data , idLoading: action.isLoading, fisrt_page: 1}
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
         case types.GET_DS_SHOP:
             return { ...state, dsshop: action.dsshop }
         case types.GET_SLIDE:
@@ -34,15 +30,11 @@ const myshop = (state = initialState, action) => {
             var sanphamOld = state.sanphamshop;
             var sanphammoi = sanphamOld.concat(action.item);
             return {...state, sanphamshop : sanphammoi, fisrt_page : pageNew}
-<<<<<<< HEAD
-        default: return { ...state};
-=======
         case types.ADD_PRODUCT:
             console.log("Reducer sau khi add hàng : " + state.sanphamshop);
             // var newPage = parseInt(action.rs_first_page);
             // return {...state, fisrt_page: newPage}
         default: return { ...state}; 
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     }
 }
 

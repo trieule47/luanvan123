@@ -18,10 +18,7 @@ import { connect } from "react-redux";
 import {
     actAllInfoShopRequest,
     actLoadMoreShopRequest,
-<<<<<<< HEAD
-=======
     actDeleteProductRequest
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
 } from "../../../action/ShopAction";
 
 //import Colection from "../../Main/Shop/Home/Category";
@@ -36,10 +33,7 @@ class SanPham extends Component {
         this.state = {
             isLoading: true,
             page: 0,
-<<<<<<< HEAD
-=======
             activeRowKey: null,
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
         }
 
     }
@@ -60,35 +54,6 @@ class SanPham extends Component {
             btnThem1,
             btnThem,
         } = styles;
-<<<<<<< HEAD
-        const swiperSetting = {
-            autoClose: true,
-            onClose: (setId, rowId, direction) => {
-
-            },
-            onOpen: (setId, rowId, direction) => {
-
-            },
-            right: [
-                {
-                    onPress: () => {
-                        console.log("Xóa sp :  " + this.props.index);
-                        
-                    },
-                    text: 'Xóa', type: 'delete'
-                },
-                {
-                    onPress: () => {
-                        console.log("Sửa");
-                    },
-                    text: 'Sửa', type: 'change', backgroundColor: '#2CBE4E'
-                }
-            ],
-            rowId: this.props.index,
-            sectionId: 1
-        }
-=======
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
         const { navigation } = this.props;
         return (
             <View>
@@ -111,12 +76,6 @@ class SanPham extends Component {
                             data={myshop.sanphamshop}
                             renderItem={({ item }) => {
                                 return (
-<<<<<<< HEAD
-                                    <Swipeout {...swiperSetting}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                navigation.navigate("ChiTiet", {
-=======
                                     <Swipeout
                                         autoClose={true}
                                         onClose={(setId, rowId, direction) => {
@@ -161,7 +120,6 @@ class SanPham extends Component {
                                         <TouchableOpacity
                                             onPress={() => {
                                                 navigation.navigate("SuaSanPham", {
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
                                                     product: item,
                                                 });
                                             }}
@@ -232,10 +190,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetInforShop: (id_user, page, token) => dispatch(actAllInfoShopRequest(id_user, page, token)),
         LoadMoreSanPhamShop: (id_shop, page, token) => dispatch(actLoadMoreShopRequest(id_shop, page, token)),
-<<<<<<< HEAD
-=======
         XoaSanPhamShop: (id_sanPham, id_shop, token) => dispatch(actDeleteProductRequest(id_sanPham,id_shop, token)),
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     };
 };
 

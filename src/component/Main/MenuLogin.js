@@ -34,10 +34,6 @@ function MenuLogin(props) {
   const request = () => {
     this.props.AddProduct(this.props.user.infoUser);
   //  console.log('user ' + JSON.stringify(this.props.user.infoUser))
-<<<<<<< HEAD
-  
-=======
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
   }
         return (
             <View style={{flex:1}}>

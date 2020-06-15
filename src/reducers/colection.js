@@ -4,11 +4,7 @@ const initialState = {
     inforShop: [],
     dsshop: [],
     sanphamshop: [],
-<<<<<<< HEAD
-    slide_shops: [],
-=======
     slide_shop: [],
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     idLoading:[],
     fisrt_page: 1,
     last_page: 0,
@@ -24,11 +20,7 @@ const colection = (state = initialState, action) => {
         case types.GET_DS_SHOP:
             return { ...state, dsshop: action.dsshop }
         case types.GET_SLIDE:
-<<<<<<< HEAD
-            return  {...state, slide_shops : action.item }
-=======
             return  {...state, slide_shop : action.item }
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
         case types.GET_SP_THEO_LOAI:
             return  {...state, sanphamtheoloai : action.sanpham }
         case types.LOAD_MORE_SP_SHOP:

@@ -8,10 +8,7 @@ import {
   Image,
   Dimensions,
   TextInput,
-<<<<<<< HEAD
   FlatList,
-=======
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
 } from "react-native";
 import Header from "../Header";
 import { actSPTheoLoaiRequest } from "../../../../action/SearchAction";
@@ -77,11 +74,7 @@ class SearchView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       key: 3,
-=======
-      key: 1,
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     };
   }
   gotoDetail() {
@@ -94,7 +87,6 @@ class SearchView extends Component {
   search() {
     this.props.GetSPTheoLoai(this.state.key, this.props.user.token);
   }
-<<<<<<< HEAD
   Search(key) {
     this.setState({ key: key });
     this.search();
@@ -127,23 +119,6 @@ class SearchView extends Component {
       textIput,
     } = styles;
 
-=======
-  render() {
-    const {
-      product,
-      mainRight,
-      txtMaterial,
-      txtColor,
-      txtName,
-      txtPrice,
-      productImage,
-      txtShowDetail,
-      showDetailContainer,
-      wrapper,
-      textIput,
-    } = styles;
-
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     const { myshop, navigation } = this.props;
     return (
       <View style={wrapper}>
@@ -151,7 +126,6 @@ class SearchView extends Component {
           onOpen={() => {
             this.openMenu();
           }}
-<<<<<<< HEAD
         >
         </Header>
         <FlatList
@@ -164,10 +138,6 @@ class SearchView extends Component {
           {Loai.map((e)=>(
             <TouchableOpacity onPress={()=>this.Search(e.id)}><Text>{e.title}</Text></TouchableOpacity>
           ))}
-=======
-        ></Header>
-        <View style={{ flexDirection: "row" }}>
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
           <TextInput
             style={textIput}
             placeholder="Bạn muốn mua gì ?"
@@ -177,11 +147,7 @@ class SearchView extends Component {
           <TouchableOpacity onPress={this.search.bind(this)}>
             <Text>search</Text>
           </TouchableOpacity>
-<<<<<<< HEAD
         </View> */}
-=======
-        </View>
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
         <ScrollView>
           {myshop.sanphamtheoloai.map((e) => (
             <TouchableOpacity
@@ -276,7 +242,6 @@ const imageHeight = (imageWidth * 452) / 361;
 const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
   container: {
     
     marginVertical: 5,
@@ -296,8 +261,6 @@ const styles = StyleSheet.create({
   itemText: {
     color: "#fff",
   },
-=======
->>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
   wrapper: {
     backgroundColor: "#F6F6F6",
     flex: 1,
