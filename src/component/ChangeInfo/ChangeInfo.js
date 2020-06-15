@@ -5,17 +5,31 @@ import {
 import backSpecial from '../../media/appIcon/backs.png';
 import { connect } from 'react-redux';
 import { actChangeInfoRequest } from '../../action/UserAction';
+import { Camera } from "expo-camera";
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+const ur = require("../Authentication/no-image.png");
 
 class ChangeInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             info: {
-                password: '',
-                name: '',
-                diachi: '',
-                sodienthoai: '',
-            }
+                email: "",
+                name: "",
+                anh_user: "",
+                password: "",
+                diachi: "",
+                sodienthoai: "",
+            },
+            hasPermission: " ",
+            type: " ",
+            sourceImage: " ",
         };
     }
     goBackToMain() {
@@ -23,8 +37,8 @@ class ChangeInfo extends Component {
         navigation.goBack();
     }
 
-    onChangeInfo = (id, email, info) => {
-        this.props.onChangeInfo(id, email, info);
+    onChangeInfo = (id, email, info,token) => {
+        this.props.onChangeInfo(id, email, info,token);
     }
 
     clearText(fieldName) {
@@ -38,6 +52,57 @@ class ChangeInfo extends Component {
         this.clearText('txtPass');
     }
 
+    async componentDidMount() {
+        this.getPermissionAsync()
+      } 
+    
+      getPermissionAsync = async () => {
+          // Camera roll Permission 
+          if (Platform.OS === 'ios') {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+          // Camera Permission
+          const { status } = await Permissions.askAsync(Permissions.CAMERA);
+          this.setState({ hasPermission: status === 'granted', type: Camera.Constants.Type.back});
+      }
+    
+      // setType(){
+      //   const { type } = this.state
+    
+      //   this.setState({type:
+      //     type === Camera.Constants.Type.back
+      //     ? Camera.Constants.Type.front
+      //     : Camera.Constants.Type.back
+      //   })
+      // }
+      // takePicture = async () => {
+      //   if (this.camera) {
+      //     const options = { quality: 0.5, base64: true };
+      //     const data = await this.camera.takePictureAsync( options)
+      //       .then(data =>{ this.setState({sourceImage: JSON.stringify(data)})
+      //        //,           console.log("data : "+"  "+ this.state.sourceImage)
+      //       })
+      //       .catch(error => console.log('eror', error));
+      //     console.log('Exiting takePicture()');
+      //   }
+      // };
+    
+      pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          base64: true,
+        });
+    
+        this.setState({ sourceImage: result});
+        this.setState({
+          info: { ...this.state.info, anh_user : result.base64 },
+        })
+        //console.log('data '+ JSON.stringify(this.state.info.anh_user) );
+      }
+
     render() {
         const {
             wrapper, header, headerTitle, backIconStyle, body,
@@ -45,6 +110,7 @@ class ChangeInfo extends Component {
         } = styles;
 
         const { user } = this.props;
+        const {sourceImage} =this.state;
 
         return (
             <ScrollView style={{ flex: 1 }}>
@@ -57,6 +123,21 @@ class ChangeInfo extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={body}>
+
+                        <View style={{flexDirection:'row', marginLeft: 10}}>
+                            <Image style={{ margin: 10 , height:100 , width:100 }} source={ sourceImage != " " ? sourceImage : ur} />
+                            <TouchableOpacity
+                            onPress={this.pickImage.bind(this)}
+                                style={{
+                                alignSelf: "flex-end",
+                                alignItems: "center",
+                                backgroundColor: "transparent",
+                                }}
+                            >
+                                <Ionicons name="ios-photos" style={{ color: "#111", fontSize: 40 }} />
+                            </TouchableOpacity>
+                        </View>
+
                         <TextInput
                             ref = {'txtName'}
                             style={textInput}
@@ -107,13 +188,14 @@ class ChangeInfo extends Component {
                         />
                         <TouchableOpacity style={signInContainer}
                             onPress={() => {
-                                if(user.password != this.state.info.password)
+
+                                if(user.password != this.state.info.password )
                                 {
                                     Alert.alert("Thông báo", "Vui lòng nhập lại mật khẩu !" + user.password +' '+ this.state.info.password);
                                 }
                                 else
                                 {
-                                    this.onChangeInfo(user.infoUser.id, user.infoUser.email, this.state.info);
+                                    this.onChangeInfo(user.infoUser.id , user.infoUser.email , this.state.info , user.token);
                                     this.clearAllTextInput();
                                 }
                             }}

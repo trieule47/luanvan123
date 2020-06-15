@@ -15,15 +15,16 @@ import { connect } from "react-redux";
 const { height, width } = Dimensions.get("window");
 const url = "http://vaomua.club/public/user/image/images/";
 
-import { actGetDSShopRequest } from "../../../../action/ShopAction";
+import { GetDSShopRequest } from "../../../../action/ColectionAction";
 
 class Colection extends Component {
   componentDidMount() {
     this.props.GetDSShop();
   }
   render() {
-    const { myshop } = this.props;
+    const { colection } = this.props;
     const { navigation } = this.props;
+   // console.log('shoppp :' + JSON.stringify(myshop));
     const { wrapper, textStyle, imageStyle, cateTitle } = styles;
     return (
       <View style={wrapper}>
@@ -32,7 +33,7 @@ class Colection extends Component {
         </View>
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
-            {myshop.dsshop.map((e) => (
+            {colection.dsshop.map((e) => (
               <TouchableOpacity key={e.id}
               onPress={() => {
                 navigation.navigate('ShopDetail', {
@@ -59,14 +60,14 @@ class Colection extends Component {
 
 const mapStateTopProps = (state) => {
   return {
-    myshop: state.myshop,
+    colection: state.colection,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     GetDSShop: () => {
-      dispatch(actGetDSShopRequest());
+      dispatch(GetDSShopRequest());
     },
   };
 };

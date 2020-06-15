@@ -8,15 +8,22 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { connect } from "react-redux";
-import { actAllProductsRequest } from "./../../../../action/TopProductAction";
-
+import { actAllProductsRequest } from "../../../../action/CategoryAction";
+import { actLoadMoreRequest } from "../../../../action/CategoryAction";
 const sp1 =
   "http://vaomua.club/public/user/image/images//mon-ngon-tu-nam-kim-cham.jpg";
 const url = "http://vaomua.club/public/user/image/images/";
 
 class ListProduct extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id_loaisp: "",
+    };
+  }
   goBack() {
     const { navigation } = this.props;
     navigation.pop();
@@ -26,7 +33,7 @@ class ListProduct extends Component {
     navigation.push("ProductDetail");
   }
   componentDidMount() {
-    this.props.GetProduct(1);
+    this.props.GetProduct();
   }
   render() {
     const {
@@ -44,141 +51,96 @@ class ListProduct extends Component {
       txtMaterial,
       txtColor,
       txtShowDetail,
+      btnPlus,
     } = styles;
-    const { topproducts } = this.props;
+    const { category } = this.props;
+    console.log("aaa " + JSON.stringify(category.sanphamshop));
     const { navigation } = this.props;
     return (
       <View style={container}>
-        <ScrollView style={wrapper}>
-            <View style={header}>
-                <TouchableOpacity onPress={this.goBack.bind(this)} >
-                    <Image source={backList} style={backStyle} />
-                </TouchableOpacity>
-                <Text style={titleStye}>NÔNG SẢN</Text>
-                <View style={{ width: 30 }} />
-            </View>
-          {topproducts.allproduct.map((e) => (
-            <View style={productContainer} key={e.id}>
-              <Image
-                style={productImage}
-                source={{ uri: `${url}${e.sanpham_anh}` }}
-              />
-              <View style={productInfo}>
-                <Text style={txtName}>{e.sanpham_ten}</Text>
-                <Text style={txtPrice}>
-                  {e.gia_tien
-                    .toString()
-                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}{" "}
-                  VNĐ
-                </Text>
-                <Text style={txtMaterial}>{e.phan_tram_km}</Text>
-                <View style={lastRowInfo}>
-                  <View
-                    style={{
-                      backgroundColor: "green",
-                      height: 16,
-                      width: 16,
-                      borderRadius: 8,
+        {/* <ScrollView > */}
+        <View style={wrapper}>
+          <View style={header}>
+            <TouchableOpacity onPress={this.goBack.bind(this)}>
+              <Image source={backList} style={backStyle} />
+            </TouchableOpacity>
+            <Text style={titleStye}>NÔNG SẢN</Text>
+            <View style={{ width: 30 }} />
+          </View>
+          <FlatList
+            data={category.sanphamshop}
+            renderItem={({ item }) => {
+              return (
+                <View style={productContainer}>
+                  <Image
+                    style={productImage}
+                    source={{
+                      uri:
+                        item.sanpham_anh_app == null
+                          ? `${url}${item.sanpham_anh}`
+                          : item.sanpham_anh_app,
                     }}
                   />
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("ProductDetail", {
-                        product: e,
-                      });
-                    }}
-                  >
-                    <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("ProductDetail", {
-                        product: e,
-                      });
-                    }}
-                  >
-                    <Text style={txtShowDetail}>SHOP</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          ))}
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetProduct(1)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetProduct(2)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetProduct(3)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>3</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetProduct(4)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>4</Text>
-            </TouchableOpacity>
-          </View>
-          {/* <View style={productContainer}>
-                        <Image style={productImage} source={{uri: sp1}} />
-                        <View style={productInfo}>
-                            <Text style={txtName} >nấm kim châm</Text>
-                            <Text style={txtPrice}>117$</Text>
-                            <Text style={txtMaterial}>Material silk</Text>
-                            <View style={lastRowInfo}>
-                                <Text style={txtColor}> RoyalBlue</Text>
-                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity onPress={this.gotoDetail.bind(this)} >
-                                    <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                  <View style={productInfo}>
+                    <Text style={txtName}>{item.sanpham_ten}</Text>
+                    <Text style={txtPrice}>
+                      {item.gia_tien
+                        .toString()
+                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}{" "}
+                      VNĐ
+                    </Text>
+                    <Text style={txtMaterial}>{item.phan_tram_km}</Text>
+                    <View style={lastRowInfo}>
+                      <View
+                        style={{
+                          backgroundColor: "green",
+                          height: 16,
+                          width: 16,
+                          borderRadius: 8,
+                        }}
+                      />
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("ProductDetail", {
+                            product: item,
+                          });
+                        }}
+                      >
+                        <Text style={txtShowDetail}>SHOW DETAILS</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("ProductDetail", {
+                            product: item,
+                          });
+                        }}
+                      >
+                        <Text style={txtShowDetail}>SHOP</Text>
+                      </TouchableOpacity>
                     </View>
-            */}
-                    
-        </ScrollView>
+                  </View>
+                </View>
+              );
+            }}
+            keyExtractor={(item) => item.id.toString()}
+            ListFooterComponent={
+              <View
+                style={btnPlus}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.LoadMore(this.props.category.fisrt_page + 1);
+                    console.log(
+                      "San pham moi : " + JSON.stringify(category.sanphamshop)
+                    );
+                  }}
+                >
+                  <Text style={{ color: "#2CBE4E" }}>Xem thêm sản phẩm</Text>
+                </TouchableOpacity>
+              </View>
+            }
+          ></FlatList>
+        </View>
       </View>
     );
   }
@@ -186,16 +148,18 @@ class ListProduct extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    topproducts: state.topproducts,
+    category: state.category,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetProduct: (page) => dispatch(actAllProductsRequest(page)),
+    GetProduct: () => dispatch(actAllProductsRequest()),
+    LoadMore: (page) => {
+      dispatch(actLoadMoreRequest(page));
+    },
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListProduct);
 
@@ -217,6 +181,7 @@ const styles = StyleSheet.create({
     shadowColor: "#2E272B",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
+    marginBottom: 50,
   },
   backStyle: {
     width: 30,
@@ -259,5 +224,14 @@ const styles = StyleSheet.create({
   txtShowDetail: {
     color: "#34B089",
     fontSize: 11,
+  },
+  btnPlus:{
+    flex: 1,
+    padding: 10,
+    alignContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#2CBE4E",
+    backgroundColor: "#FFF",
   },
 });

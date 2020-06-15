@@ -20,6 +20,17 @@ import icBack from "../../media/appIcon/back_white.png";
 import icLogo from "../../media/appIcon/ic_logo.png";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
+import { Camera } from "expo-camera";
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+
+const ur = require("./no-image.png");
+
 class Authantication extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +39,7 @@ class Authantication extends Component {
       info: {
         email: "",
         name: "",
+        anh_user: "",
         password: "",
         diachi: "",
         sodienthoai: "",
@@ -37,6 +49,9 @@ class Authantication extends Component {
         email: "",
         password: "",
       },
+      hasPermission: " ",
+      type: " ",
+      sourceImage: " ",
     };
   }
   signIn() {
@@ -65,8 +80,8 @@ class Authantication extends Component {
       password: "123456",
       email: "test@1234.com",
     };
-    
     this.props.onSignIn(a);
+    //this.props.onSignIn(this.state.info_SignIn);
   };
 
   clearText(fieldName) {
@@ -80,6 +95,57 @@ class Authantication extends Component {
     this.clearText("txtPhone");
     this.clearText("txtPass");
     this.clearText("txtRePass");
+  }
+
+  async componentDidMount() {
+    this.getPermissionAsync()
+  } 
+
+  getPermissionAsync = async () => {
+      // Camera roll Permission 
+      if (Platform.OS === 'ios') {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+      // Camera Permission
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
+      this.setState({ hasPermission: status === 'granted', type: Camera.Constants.Type.back});
+  }
+
+  // setType(){
+  //   const { type } = this.state
+
+  //   this.setState({type:
+  //     type === Camera.Constants.Type.back
+  //     ? Camera.Constants.Type.front
+  //     : Camera.Constants.Type.back
+  //   })
+  // }
+  // takePicture = async () => {
+  //   if (this.camera) {
+  //     const options = { quality: 0.5, base64: true };
+  //     const data = await this.camera.takePictureAsync( options)
+  //       .then(data =>{ this.setState({sourceImage: JSON.stringify(data)})
+  //        //,           console.log("data : "+"  "+ this.state.sourceImage)
+  //       })
+  //       .catch(error => console.log('eror', error));
+  //     console.log('Exiting takePicture()');
+  //   }
+  // };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      base64: true,
+    });
+
+    this.setState({ sourceImage: result});
+    this.setState({
+      info: { ...this.state.info, anh_user : result.base64 },
+    })
+    //console.log('data '+ JSON.stringify(this.state.info.anh_user) );
   }
 
   render() {
@@ -99,6 +165,7 @@ class Authantication extends Component {
     } = styles;
 
     const { signup, user } = this.props;
+    const {hasPermission,type,sourceImage}= this.state;
 
     const signInJSX = (
       <View>
@@ -134,12 +201,7 @@ class Authantication extends Component {
           style={bigButton}
           onPress={() => {
             this.onSignIn(this.state.info_SignIn);
-            //     console.log("infor user :" + JSON.stringify(this.state.info_SignIn));
-            //     if(user.checked == "success"){
-            //         this.props.navigation.navigate('Shop');
-            //     }
-            //     console.log("Thông báo Đăng nhập : " + JSON.stringify(user.infoUser) + " Check " + user.checked);
-          }}
+             }}
         >
           <Text style={buttonText}>Đăng nhập</Text>
         </TouchableOpacity>
@@ -161,6 +223,7 @@ class Authantication extends Component {
               },
             });
           }}
+          autoCapitalize="none"
         />
         <TextInput
           style={inputStyle}
@@ -175,6 +238,19 @@ class Authantication extends Component {
             });
           }}
         />
+        <View style={{flexDirection:'row', marginLeft: 10}}>
+          <Image style={{ margin: 10 , height:100 , width:100 }} source={ sourceImage != " " ? sourceImage : ur} />
+          <TouchableOpacity
+          onPress={this.pickImage.bind(this)}
+            style={{
+              alignSelf: "flex-end",
+              alignItems: "center",
+              backgroundColor: "transparent",
+            }}
+          >
+            <Ionicons name="ios-photos" style={{ color: "#111", fontSize: 40 }} />
+          </TouchableOpacity>
+        </View>
         <TextInput
           style={inputStyle}
           ref={"txtAddress"}

@@ -23,7 +23,6 @@ class Chitiet extends Component {
     navigation.pop();
   }
   onAddToCart = (product) => {
-    console.log("ProductDetail redux : ");
     // this.props.onAddToCart(product);
   };
   render() {
@@ -52,78 +51,48 @@ class Chitiet extends Component {
     } = styles;
     return (
       <View style={wrapper}>
-        <View style={cardStyle}>
-          <View style={header}>
-            <TouchableOpacity onPress={this.goBack.bind(this)}>
-              <Image style={backStyle} source={back} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text
-                style={{ fontWeight: "bold", fontSize: 20, color: "#34B089" }}
-                onPress={() => navigation.navigate("sua", { product: product })}
-              >
-                Sửa
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text
-                style={{ fontWeight: "bold", fontSize: 20, color: "#34B089" }}
-              >
-                Xóa
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={imageContainer}>
-            <ScrollView style={{ flexDirection: "row" }} horizontal>
-              <Image
-                source={{ uri: `${url}${product.sanpham_anh}` }}
-                style={productImageStyle}
-              />
-            </ScrollView>
-          </View>
-          <View style={footer}>
-            <View style={titleContainer}>
-              <Text style={textMain}>
-                <Text style={textBlack}>
-                  {product.sanpham_ten.toUpperCase()}
-                </Text>
-                <Text style={textHighlight}> / </Text>
-                <Text style={textSmoke}>
-                  {product.gia_tien
-                    .toString()
-                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}{" "}
-                  VNĐ
-                </Text>
-              </Text>
-              <Text style={txtMaterial}>
-                Khuyến mãi: {product.phan_tram_km} %
-              </Text>
-            </View>
-            <ScrollView style={descContainer}>
-              {/* <Text style={descStyle}>{product.sanpham_mo_ta}</Text> */}
-
-              <HTML
-                html={product.sanpham_mo_ta}
-                imagesMaxWidth={Dimensions.get("window").width}
-              />
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingTop: 15,
-                }}
-              >
-                {/* <View style={{ flexDirection: 'row' }} >
-                                    <Text style={txtColor}>{color}</Text>
-                                    <View style={{ height: 15, width: 15, backgroundColor: 'black'.toLowerCase(), borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
-                                </View> */}
+          <View style={cardStyle}>
+              <View style={header}>
+                      <TouchableOpacity onPress={this.goBack.bind(this)}>
+                          <Image style={backStyle} source={back} />
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => this.onAddToCart(product)}>
+                          <Image style={cartStyle} source={cart} />
+                      </TouchableOpacity>
               </View>
-            </ScrollView>
+              <ScrollView>
+                  <View style={imageContainer}>
+                      <View style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
+                              <Image source={{ uri: e.sanpham_anh_app == null ? `${url}${e.sanpham_anh}` : e.sanpham_anh_app, }} style={productImageStyle} />
+                      </View>
+                  </View>
+                  <View style={footer}>
+                      <View style={titleContainer}>
+                          <Text style={textMain}>
+                              <Text style={textBlack}>{product.sanpham_ten.toUpperCase()}</Text>
+                              <Text style={textHighlight}> / </Text>
+                              <Text style={textSmoke}>{(product.gia_tien).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</Text>
+                          </Text>
+                          <Text style={txtMaterial}>Khuyến mãi: {product.phan_tram_km} %</Text>
+                      </View>
+                      <View style={descContainer}>
+                          {/* <Text style={descStyle}>{product.sanpham_mo_ta}</Text> */}
+
+                          <HTML html={product.sanpham_mo_ta} imagesMaxWidth={Dimensions.get('window').width} />
+
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 15 }}>
+                              {/* <View style={{ flexDirection: 'row' }} >
+                                  <Text style={txtColor}>{color}</Text>
+                                  <View style={{ height: 15, width: 15, backgroundColor: 'black'.toLowerCase(), borderRadius: 15, marginLeft: 10, borderWidth: 1, borderColor: '#C21C70' }} />
+                              </View> */}
+                          </View>
+                      </View>
+                  </View>
+          </ScrollView>
           </View>
-        </View>
+
       </View>
-    );
+  );
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -133,28 +102,28 @@ const mapDispatchToProps = (dispatch) => {
 };
 export default connect(null, mapDispatchToProps)(Chitiet);
 
-const { width } = Dimensions.get("window");
-const swiperWidth = width - 40;
-const swiperHeight = width / 1.8 - 30;
+const { width } = Dimensions.get('window');
+const swiperWidth = (width / 1.8) - 30;
+const swiperHeight = (swiperWidth * 452) / 361;
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
-    backgroundColor: "#D6D6D6",
+      flex: 1,
+      backgroundColor: '#D6D6D6',
   },
   cardStyle: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 5,
-    marginHorizontal: 10,
-    marginVertical: 10,
+      flex: 7,
+      backgroundColor: '#FFFFFF',
+      borderRadius: 5,
+      marginHorizontal: 10,
+      marginVertical: 10
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flex: 1,
-    paddingHorizontal: 15,
-    paddingTop: 20,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      height:50,
+      paddingHorizontal: 15,
+      paddingTop: 20
   },
   cartStyle: {
     width: 25,

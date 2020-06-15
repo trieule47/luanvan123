@@ -11,7 +11,10 @@ import {
   FlatList,
 } from "react-native";
 import { connect } from "react-redux";
-import { actAllInfoShopRequest } from "./../../../action/ShopAction";
+import {
+  getDataShop,
+  actLoadMoreRequest,
+} from "../../../../action/ColectionAction";
 
 const url = "http://vaomua.club/public/user/image/images/";
 
@@ -24,8 +27,9 @@ class Detail extends Component {
   }
   componentDidMount() {
     this.setState({
-      isLoading: this.props.myshop.isLoading,
+      isLoading: this.props.colection.isLoading,
     });
+    this.props.GetDataShop(this.props.id_shop, 1);
   }
 
   render() {
@@ -38,22 +42,52 @@ class Detail extends Component {
       productImage,
       productName,
       productPrice,
+      btnPlus,
     } = styles;
-    const { navigation } = this.props;
-    const { b } = this.props;
-
+    const { navigation, colection } = this.props;
+    const { id_shop } = this.props;
+    //  console.log('san pham shop :' + JSON.stringify(myshop.sanphamshop));
+    // console.log(' item '+ JSON.stringify(colection.slide_shop));
     if (this.state.isLoading == true)
       return <ActivityIndicator size="large" color="#0000ff" />;
     else
       return (
         <View>
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <Text style={{ fontSize: 25, color: "#AFAEAF" }}>
+              Danh sách sản phẩm
+            </Text>
+          </View>
           <View style={body}>
             {/* <FlatList
-              data={b}
+              // numColumns={2}
+              // contentContainerStyle={{
+              //   alignSelf: 'flex-start'
+              //   }}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                            
+              data={colection.sanphamshop}
               renderItem={({ item }) => (
-                <TouchableOpacity style={productContainer} >
+                <TouchableOpacity
+                  style={productContainer}
+                  style={{marginHorizontal:10}}
+                  key={item.id}
+                  onPress={() => {
+                    navigation.navigate("ChiTiet", {
+                      product: item,
+                    });
+                  }}
+                >
                   <Image
-                    source={{ uri: `${url}${item.sanpham_anh}` }}
+                    //2 nơi lưu ảnh nên phải làm thế này
+                    source={{
+                      uri:
+                      item.sanpham_anh_app == null
+                          ? `${url}${item.sanpham_anh}`
+                          : item.sanpham_anh_app,
+                    }}
                     style={productImage}
                   />
                   <Text style={productName}>{item.sanpham_ten.toUpperCase()}</Text>
@@ -66,13 +100,29 @@ class Detail extends Component {
                 </TouchableOpacity>
               )}
               keyExtractor={(item) => item.id}
+              ListFooterComponent={
+                <View
+                  style={btnPlus}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.LoadMore(this.props.colection.fisrt_page + 1);
+                      console.log(
+                        "San pham moi : " + JSON.stringify(colection.sanphamshop)
+                      );
+                    }}
+                  >
+                    <Text style={{ color: "#2CBE4E" }}>Xem thêm sản phẩm</Text>
+                  </TouchableOpacity>
+                </View>
+              }
             /> */}
-            {this.props.b.map((e) => (
+            { colection.sanphamshop.map((e) => (
               <TouchableOpacity
                 style={productContainer}
                 key={e.id}
                 onPress={() => {
-                  navigation.navigate("ChiTiet", {
+                  navigation.navigate("ProductDetail", {
                     product: e,
                   });
                 }}
@@ -96,80 +146,39 @@ class Detail extends Component {
                 </Text>
               </TouchableOpacity>
             ))}
+            
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 1,this.props.user.token)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 2,this.props.user.token)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 3,this.props.user.token)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>3</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.GetInforShop(this.props.user.infoUser.id, 4,this.props.user.token)
-              }
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                padding: 5,
-                borderRadius: 5,
-                margin: 4,
-              }}
-            >
-              <Text>4</Text>
-            </TouchableOpacity>
-          </View>
+          <View
+                  style={btnPlus}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.LoadMore(id_shop,this.props.colection.fisrt_page + 1);
+                      console.log(
+                        "San pham moi : " + JSON.stringify(colection.sanphamshop)
+                      );
+                    }}
+                  >
+                    <Text style={{ color: "#2CBE4E" }}>Xem thêm sản phẩm</Text>
+                  </TouchableOpacity>
+                </View>
         </View>
       );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    myshop: state.myshop,
+    colection: state.colection,
     user: state.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetInforShop: (id_user, page,token) =>
-      dispatch(actAllInfoShopRequest(id_user, page, token)),
+    GetDataShop: (id_shop, page) => dispatch(getDataShop(id_shop, page)),
+    LoadMore: (id_shop,page) => {
+      dispatch(actLoadMoreRequest(id_shop,page));
+    },
   };
 };
 
@@ -222,5 +231,14 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
 
     color: "#662F90",
+  },
+  btnPlus:{
+    flex: 1,
+    padding: 10,
+    alignContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#2CBE4E",
+    backgroundColor: "#FFF",
   },
 });

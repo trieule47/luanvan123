@@ -11,11 +11,9 @@ const url = "http://vaomua.club/public/user/image/images/";
 export default class Header extends Component {
     render() {
 
-        const {  navigation,a} = this.props;
-       
-
+        const {  navigation, shop } = this.props;
         const { wrapper, row1, textIput, iconStyle, titleStyle } = styles;
-        console.log('e :' + JSON.stringify(shop))
+        
         return (
             <View style={{ wrapper, backgroundColor: '#34B089', padding: 10  }}>
                 <View style={row1}>
@@ -28,7 +26,7 @@ export default class Header extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={row1}>
-                <Text  style = {titleStyle}></Text>
+        <Text  style = {titleStyle}>{shop}</Text>
                 </View>
             </View>
         )

@@ -33,7 +33,8 @@ function MenuLogin(props) {
   const avatar = props.user.infoUser.avatar;
   const request = () => {
     this.props.AddProduct(this.props.user.infoUser);
-    console.log('user ' + JSON.stringify(this.props.user.infoUser))
+  //  console.log('user ' + JSON.stringify(this.props.user.infoUser))
+  
   }
         return (
             <View style={{flex:1}}>
@@ -42,7 +43,7 @@ function MenuLogin(props) {
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image 
-                                 source={{uri: `${url}${avatar}`}}
+                                 source={{uri: props.user.infoUser.anh_user? props.user.infoUser.anh_user : `${url}${avatar}`}}
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>

@@ -18,13 +18,10 @@ class Chitiet extends Component {
         navigation.pop();
     }
     onAddToCart = (product) => {
-        console.log('ProductDetail redux : ')
        // this.props.onAddToCart(product);
     }
     render() {
-        const { route } = this.props;
-
-        const { product } = route.params;
+      
 
         const {
             wrapper, cardStyle, header,
@@ -57,9 +54,9 @@ class Chitiet extends Component {
                             <Text style={textMain}>
                                 <TextInput  value={product.sanpham_ten.toUpperCase()} ></TextInput>
                                 <Text style={textHighlight}> / </Text>
-                                <Text style={textSmoke}>{(product.gia_tien).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</Text>
+                                {/* <Text style={textSmoke}>{(product.gia_tien).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</Text> */}
                             </Text>
-                            <Text style={txtMaterial}>Khuyến mãi: {product.phan_tram_km} %</Text>
+                            {/* <Text style={txtMaterial}>Khuyến mãi: {product.phan_tram_km} %</Text> */}
                         </View>
                         <ScrollView style={descContainer}>
                             {/* <Text style={descStyle}>{product.sanpham_mo_ta}</Text> */}

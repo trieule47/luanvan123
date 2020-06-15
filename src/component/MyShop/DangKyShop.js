@@ -39,7 +39,7 @@ class DangKyShop extends Component {
       shopInfor: { ...this.state.shopInfor, c7: this.props.user.infoUser.id },
     })
 
-    this.props.ShopSignUp(this.state.shopInfor);
+    this.props.ShopSignUp(this.state.shopInfor,this.props.myshop.token);
   }
   render() {
     const {
@@ -156,8 +156,8 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    ShopSignUp: (infor) => {
-      dispatch(actShopSignUpRequest (infor));
+    ShopSignUp: (infor,token) => {
+      dispatch(actShopSignUpRequest (infor,token));
     },
   };
 };

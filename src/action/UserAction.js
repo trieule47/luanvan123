@@ -23,17 +23,13 @@ export const actSignInRequest = (info) => {
         callApi('login', 'POST', info , null).then(res => {
             if (res.data.success.token != "") {
                 const token = res.data.success.token;
-                console.log('res1', res)
                 callApi('user' , 'GET', null, token).then(res => {
-                    console.log('res2', res.data)
                     dispatch(actSignIn(res.data, 'success', token));
                     RootNavigation.navigate('Shop');
                 })
                 
             }
             else {
-               // console.log('res', res)
-             
                dispatch(actSignIn([], "error"));
                 Alert.alert("Thông báo !", "Tài khoản hoặc mật khẩu không đúng");
             }
@@ -69,7 +65,8 @@ export const actChangeInfoRequest = (id, email, info,token) => {
         password: info.password ,
         name : info.name,
         sodienthoai : info.sodienthoai,
-        diachi : info.diachi
+        diachi : info.diachi,
+        anh_user: info.anh_user
     }
     return (dispatch) => {
         callApi('change/' + id, 'PUT', body,token).then(res => {

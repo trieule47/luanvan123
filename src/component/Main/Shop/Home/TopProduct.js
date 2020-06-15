@@ -34,7 +34,7 @@ class TopProduct extends Component {
                     <Text style={title}>Sản phẩm nổi bật</Text>
                 </View>
                 <View style={body}>
-                    {topproducts.topproduct.map(e => (
+                    {topproducts.map(e => (
                         <TouchableOpacity style={productContainer}
                             onPress={() => {
                                 navigation.navigate('ProductDetail', {

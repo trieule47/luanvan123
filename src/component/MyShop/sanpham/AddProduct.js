@@ -84,7 +84,7 @@ class AddProduct extends Component {
     this.props.AddProduct(this.state.sanPham,this.props.user.infoUser.id,this.props.user.token);
   }
   kiemTra(){
-    this.setState({sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
+   // this.setState({sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
     //console.log('   kiemtra '+ JSON.stringify(this.state.sanPham))
     if (
        this.state.sanPham.lohang_id == "" ||
@@ -213,7 +213,12 @@ class AddProduct extends Component {
           <TextInput
             style={inputStyle}
             placeholder="shop_id"
-            value={JSON.stringify(this.props.myshop.inforShop.id)}
+            onChangeText={(text) =>
+              this.setState({
+                sanPham: { ...this.state.sanPham, shop_id: text },
+              })
+           // value={JSON.stringify(this.props.myshop.inforShop.id)
+          }
           />
           <TextInput
             style={inputStyle}
