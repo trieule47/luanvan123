@@ -9,7 +9,11 @@ export const actSPTheoLoaiRequest = (key, token) => {
     return (dispatch) => {
       return callApi("categorypr/"+key, "GET", null, token).then((res) => {
         if (res.data.status == "error") {
+<<<<<<< HEAD
           Alert.alert("Thông báo ! ", "Lấy sản phẩm thất bại");
+=======
+          Alert.alert("Thông báo ! ", "Lấy ds shop thất bại");
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
         } else {
           dispatch(actSPTheoLoaiShop(res.data.sanphamdm));
         }

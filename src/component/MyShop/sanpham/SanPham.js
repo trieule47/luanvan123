@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SanPhamView from './SanPhamView';
 import ChiTiet from './ChiTiet';
-import sua from './sua';
+import SuaSanPham from './SuaSanPham';
 import AddProduct from './AddProduct';
 import ThongTinShop from './ThongTinShop';
 import AddLoHang from './AddLoHang';
@@ -14,7 +14,7 @@ function MyStack() {
     <Stack.Navigator headerMode ='none'>   
       <Stack.Screen name="SanPhamView" component={SanPhamView} />
       <Stack.Screen name="ChiTiet" component={ChiTiet} />
-      <Stack.Screen name="sua" component={sua} />
+      <Stack.Screen name="SuaSanPham" component={SuaSanPham} />
       <Stack.Screen name="AddProduct" component={AddProduct} />
       <Stack.Screen name="ThongTinShop" component={ThongTinShop} />
       <Stack.Screen name="ThemLoHang" component={AddLoHang} />

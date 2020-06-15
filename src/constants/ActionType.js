@@ -30,4 +30,9 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const GET_SLIDE = "GET_SLIDE";
 export const GET_DS_SHOP = "GET_DS_SHOP";
 export const GET_SP_THEO_LOAI = "GET_SP_THEO_LOAI";
+<<<<<<< HEAD
 export const LOAD_MORE_SP_SHOP = "LOAD_MORE_SP_SHOP";
+=======
+export const LOAD_MORE_SP_SHOP = "LOAD_MORE_SP_SHOP";
+export const XOA_SAN_PHAM = "XOA_SAN_PHAM";
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570

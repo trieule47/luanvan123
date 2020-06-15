@@ -20,7 +20,7 @@ import {
 } from "@expo/vector-icons";
 
 import HTML from "react-native-render-html";
-import { actAddProductRequest } from "./../../../action/ShopAction";
+import { actAddProductRequest, actLoadMoreShopRequest } from "./../../../action/ShopAction";
 import { connect } from "react-redux";
 import { TextInput } from "react-native-paper";
 import * as RootNavigation from '../../../navigation/RootNavigation'
@@ -50,7 +50,7 @@ class AddProduct extends Component {
         donvitinh_id: "1",
         gia_tien: "250000",
         phan_tram_km: "5",
-        donvi_id:"2",
+        donvi_id: "2",
         active: "1",
         new: "1",
       },
@@ -81,13 +81,18 @@ class AddProduct extends Component {
   }
 
   ThemSanPham() {
-    this.props.AddProduct(this.state.sanPham,this.props.user.infoUser.id,this.props.user.token);
+    this.props.AddProduct(this.state.sanPham, this.props.myshop.inforShop.id, this.props.user.token);
   }
+<<<<<<< HEAD
   kiemTra(){
    // this.setState({sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
     //console.log('   kiemtra '+ JSON.stringify(this.state.sanPham))
+=======
+  kiemTra() {
+    this.setState({ sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     if (
-       this.state.sanPham.lohang_id == "" ||
+      this.state.sanPham.lohang_id == "" ||
       this.state.sanPham.sanpham_ten == "" ||
       this.state.sanPham.sanpham_anh_app == "" ||
       this.state.sanPham.sanpham_mo_ta == "" ||
@@ -100,47 +105,27 @@ class AddProduct extends Component {
     } else {
       this.ThemSanPham();
       //this.clearAllTextInput();
-      
+
     }
   }
   //////ttttttt
   async componentDidMount() {
     this.getPermissionAsync()
-  } 
-
-  getPermissionAsync = async () => {
-      // Camera roll Permission 
-      if (Platform.OS === 'ios') {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-      // Camera Permission
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
-      this.setState({ hasPermission: status === 'granted', type: Camera.Constants.Type.back});
   }
 
-  // setType(){
-  //   const { type } = this.state
+  getPermissionAsync = async () => {
+    // Camera roll Permission 
+    if (Platform.OS === 'ios') {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+    // Camera Permission
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasPermission: status === 'granted', type: Camera.Constants.Type.back });
+  }
 
-  //   this.setState({type:
-  //     type === Camera.Constants.Type.back
-  //     ? Camera.Constants.Type.front
-  //     : Camera.Constants.Type.back
-  //   })
-  // }
-  // takePicture = async () => {
-  //   if (this.camera) {
-  //     const options = { quality: 0.5, base64: true };
-  //     const data = await this.camera.takePictureAsync( options)
-  //       .then(data =>{ this.setState({sourceImage: JSON.stringify(data)})
-  //        //,           console.log("data : "+"  "+ this.state.sourceImage)
-  //       })
-  //       .catch(error => console.log('eror', error));
-  //     console.log('Exiting takePicture()');
-  //   }
-  // };
 
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -148,15 +133,14 @@ class AddProduct extends Component {
       base64: true,
     });
 
-    this.setState({ sourceImage: result});
+    this.setState({ sourceImage: result });
     this.setState({
       sanPham: { ...this.state.sanPham, sanpham_anh_app: result.base64 },
     })
-    //console.log('data '+ JSON.stringify(this.state.sanPham.sanpham_anh_app) );
   }
   render() {
     const { route, navigation } = this.props;
-    const {hasPermission,type,sourceImage}= this.state;
+    const { hasPermission, type, sourceImage } = this.state;
     const {
       wrapper,
       cardStyle,
@@ -200,7 +184,7 @@ class AddProduct extends Component {
             <Image source={icBack} style={iconStyle} />
           </TouchableOpacity>
           <Text style={titleStyle}>Nông sản</Text>
-          <TouchableOpacity onPress={()=> RootNavigation.navigate('Shop')} >
+          <TouchableOpacity onPress={() => RootNavigation.navigate('Shop')} >
             <Image source={icLogo} style={iconStyle} />
           </TouchableOpacity>
         </View>
@@ -210,6 +194,19 @@ class AddProduct extends Component {
             ĐIỀN ĐẦY ĐỦ THÔNG TIN SẢN PHẨM MUỐN THÊM{" "}
           </Text>
 
+          <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+            <Image style={{ margin: 10, height: 100, width: 100 }} source={sourceImage != " " ? sourceImage : ur} />
+            <TouchableOpacity
+              onPress={this.pickImage.bind(this)}
+              style={{
+                alignSelf: "flex-end",
+                alignItems: "center",
+                backgroundColor: "transparent",
+              }}
+            >
+              <Ionicons name="ios-photos" style={{ color: "#111", fontSize: 40 }} />
+            </TouchableOpacity>
+          </View>
           <TextInput
             style={inputStyle}
             placeholder="shop_id"
@@ -241,38 +238,10 @@ class AddProduct extends Component {
               })
             }
           />
-
-          {/* <TextInput
-            ref={"txtsanpham_anh_app"}
-            style={inputStyle}
-            placeholder="sanpham_anh_app"
-            onChangeText={(text) =>
-              this.setState({
-                sanPham: { ...this.state.sanPham, sanpham_anh_app: text },
-              })
-            }
-          /> */}
-
-    
-        <View style={{flexDirection:'row', marginLeft: 10}}>
-          <Image style={{ margin: 10 , height:100 , width:100 }} source={ sourceImage != " " ? sourceImage : ur} />
-          <TouchableOpacity
-          onPress={this.pickImage.bind(this)}
-            style={{
-              alignSelf: "flex-end",
-              alignItems: "center",
-              backgroundColor: "transparent",
-            }}
-          >
-            <Ionicons name="ios-photos" style={{ color: "#111", fontSize: 40 }} />
-          </TouchableOpacity>
-        </View>
-    
           <TextInput
             ref={"txtsanpham_mo_ta"}
             style={inputStyle}
             placeholder="sanpham_mo_ta"
-            keyboardType="email-address"
             onChangeText={(text) =>
               this.setState({
                 sanPham: { ...this.state.sanPham, sanpham_mo_ta: text },
@@ -338,7 +307,7 @@ class AddProduct extends Component {
           </View>
         </View>
         <Text style={title1Style}>
-           <Text style={{color:'yellow'}}>warnning </Text>            
+          <Text style={{ color: 'yellow' }}>warnning </Text>
             HÃY ĐẢM BẢO ĐIỀN ĐẦY ĐỦ THÔNG TIN SẢN PHẨM MÀ BẠN MUỐN THÊM TRƯỚC KHI BẤM VÀO NÚT THÊM
             thanks you!
           </Text>
@@ -348,15 +317,15 @@ class AddProduct extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    AddProduct: ( infor, user_id ,token) => {
-      dispatch(actAddProductRequest(infor,user_id,token));
+    AddProduct: (infor, id_shop, token) => {
+      dispatch(actAddProductRequest(infor, id_shop, token));
     },
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    user:  state.user,
+    user: state.user,
     myshop: state.myshop,
   };
 };
@@ -380,10 +349,10 @@ const styles = StyleSheet.create({
   },
   iconStyle: { width: 30, height: 30 },
   titleStyle: { color: "#FFF", fontSize: 30 },
-  title1Style: { color: "#FFF", fontSize: 20, textAlign: "center" ,marginBottom:50 },
+  title1Style: { color: "#FFF", fontSize: 20, textAlign: "center", marginBottom: 50 },
   controlStyle: {
     flexDirection: "row",
-  
+
   },
   inactiveStyle: {
     color: "#D7D7D7",

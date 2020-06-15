@@ -1,6 +1,7 @@
 import * as types from "../constants/ActionType";
 import callApi from "../network/apiCaller";
 
+<<<<<<< HEAD
 // export const actAddToCartRequest = (product, token) => {
 //   product = { ...product, qty: 1 };
 //   console.log(product.id + "   " + product.sanpham_ten + " " + token);
@@ -79,6 +80,25 @@ return (dispatch) => {
     dispatch(actAddToCart(product));
   });
 };
+=======
+export const actAddToCartRequest = (product, token) => {
+    product = { ...product,  qty: 1 };
+    console.log("product qty: " + JSON.stringify(product.qty));
+
+  return (dispatch) => {
+    return callApi(
+      "addcart?sanpham_id=" + product.id + "&soluong=" + product.qty,
+      "POST",
+      null,
+      token
+    ).then((res) => {
+      
+      console.log(JSON.stringify(res.data.sl.items));
+      dispatch(actAddToCart(product));
+    });
+    actAddToCart = item;
+  };
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
 };
 
 export const actAddToCart = (item) => {
@@ -91,6 +111,7 @@ export const actAddToCart = (item) => {
 // remove from cart
 
 export const actRemoveFromCartRequest = (product, token) => {
+<<<<<<< HEAD
 
   return (dispatch) => {
     return callApi(
@@ -102,6 +123,21 @@ export const actRemoveFromCartRequest = (product, token) => {
 
       console.log(JSON.stringify(res.data));
       //dispatch(actRemoveFromCart(product));
+=======
+    product = { ...product,  qty: 1 };
+    console.log("product qty: " + JSON.stringify(product.qty));
+
+  return (dispatch) => {
+    return callApi(
+      "addcart?sanpham_id=" + product.id + "&soluong=" + product.qty,
+      "POST",
+      null,
+      token
+    ).then((res) => {
+        
+      console.log(JSON.stringify(res.data.sl.items));
+      dispatch(actAddToCart(product));
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     });
     actAddToCart = item;
   };

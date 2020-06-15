@@ -67,6 +67,7 @@ class CartView extends Component {
     // console.log('CartView ' + JSON.stringify(cart) );
     const { navigation } = this.props;
 
+<<<<<<< HEAD
     const {
       main,
       checkoutButton,
@@ -148,6 +149,61 @@ class CartView extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
+=======
+    render() {
+        var { cart } = this.props;
+       // console.log('CartView ' + JSON.stringify(cart) );
+        const { navigation } = this.props;
+
+        const { main, checkoutButton, checkoutTitle, wrapper,
+            product, mainRight, productController,
+            txtName, txtPrice, productImage, numberOfProduct,
+            txtShowDetail, showDetailContainer } = styles;
+
+        return (
+            <View style={wrapper}>
+                <FlatList
+                    data={cart}
+                    renderItem={({ item }) =>
+                        <View style={product}>
+                            <Image source={{ uri: `${url}${item.sanpham_anh}` }} style={productImage} />
+                            <View style={[mainRight]}>
+                                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                                    <Text style={txtName}>{item.sanpham_ten}</Text>
+                                    <TouchableOpacity onPress={() => this.onRemoveFromCart(item)} >
+                                        <Ionicons name="ios-close-circle-outline" color="black" size={30} />
+                                    </TouchableOpacity>
+                                </View>
+                                <View>
+                                    <Text style={txtPrice}>{(item.gia_tien * item.qty).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}$</Text>
+                                </View>
+                                <View style={productController}>
+                                    <View style={numberOfProduct}>
+                                        <TouchableOpacity onPress={() => this.onDownQuantity(item)} >
+                                            <AntDesign name="minus" color="black" size={30} />
+                                        </TouchableOpacity>
+                                        <Text style={{fontSize: 20}}>{item.qty}</Text>
+                                        <TouchableOpacity onPress={() => this.onUpdateQuantity(item)}>
+                                            <AntDesign name="plus" color="black" size={30} />
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity style={showDetailContainer}>
+                                        <Text style={txtShowDetail} onPress={() => {
+                                            navigation.navigate('ProductDetail', {
+                                                product: item
+                                            })
+                                        }} >SHOW DETAILS</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    }
+                    keyExtractor={(item, index) => index.toString()}
+                />
+                <TouchableOpacity style={checkoutButton}>
+                    <Text style={checkoutTitle}>Tổng tiền {this.showTotalAmount(cart)} VNĐ (Thanh toán ngay)</Text>
+                </TouchableOpacity>
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}

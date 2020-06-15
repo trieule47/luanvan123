@@ -28,13 +28,23 @@ export const GetDSShopRequest = () => {
     return (dispatch) => {
       callApi("slide/" + id_shop, "GET", null).then((res) => {
         if (res.data.status == "error") {
+<<<<<<< HEAD
           dispatch(actFetchBannerShop([]));
         } else dispatch(actFetchBannerShop(res.data.slide));
+=======
+          dispatch(actFetchBannerShop([{sanpham_anh:"" ,sanpham_anh_app:"http://vaomua.club/public/uploads/shop/15/sanpham/15_1591708143.jpg"}]));
+        } else dispatch(actFetchBannerShop(res.data.slide));
+        console.log(' item '+ item);
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
       });
     };
   };
   
   export const actFetchBannerShop = (item) => {
+<<<<<<< HEAD
+=======
+      console.log(' item '+ item);
+>>>>>>> fad82dab7ae2a932f31487ebe42dcf3c79c42570
     return {
       type: types.GET_SLIDE,
       item,
