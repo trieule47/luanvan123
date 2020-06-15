@@ -33,7 +33,7 @@ function MenuLogin(props) {
   const avatar = props.user.infoUser.avatar;
   const request = () => {
     this.props.AddProduct(this.props.user.infoUser);
-    console.log('user ' + JSON.stringify(this.props.user.infoUser))
+  //  console.log('user ' + JSON.stringify(this.props.user.infoUser))
   }
         return (
             <View style={{flex:1}}>

@@ -12,42 +12,40 @@ import Swiper from "react-native-swiper";
 
 import littleIcon from "../../../../media/temp/little.jpg";
 import { connect } from "react-redux";
+import { getSlideShop } from "../../../../action/ShopAction";
 const { height, width } = Dimensions.get("window");
 const url = "http://vaomua.club/public/user/image/images/";
 
-import { GetDSShopRequest } from "../../../../action/ColectionAction";
 
-class Colection extends Component {
-  componentDidMount() {
-    this.props.GetDSShop();
+class SlideShop extends Component {
+  componentDidMount(){
+  //  console.log('shop_id : '+ this.props.id_shop);
+    this.props.GetSlideShop(this.props.id_shop);
+    //console.log('slide shop: '+ this.props.myshop.slide_shop);
   }
   render() {
-    const { colection } = this.props;
-    const { navigation } = this.props;
-   // console.log('shoppp :' + JSON.stringify(myshop));
+    const { myshop, id_shop } = this.props;
+     //console.log(" slide: " + JSON.stringify(myshop.slide_shop));
     const { wrapper, textStyle, imageStyle, cateTitle } = styles;
     return (
       <View style={wrapper}>
         <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={textStyle}>Danh sách shop</Text>
+          <Text style={textStyle}>shop</Text>
         </View>
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
-            {colection.dsshop.map((e) => (
-              <TouchableOpacity key={e.id}
-              onPress={() => {
-                navigation.navigate('ShopDetail', {
-                    shop: e,
-                })
-            }}
-              >
+            {myshop.slide_shop.map((e) => (
+              <TouchableOpacity key={e.sanpham_anh_app}>
                 <ImageBackground
                   source={{
-                    uri: `${url}${e.image_name}`,
+                    uri:
+                      e.sanpham_anh_app == null
+                        ? `${url}${e.sanpham_anh}`
+                        : e.sanpham_anh_app,
                   }}
                   style={imageStyle}
                 >
-                  <Text style={cateTitle}>{e.tenshop}</Text>
+                  <Text style={cateTitle} >{e.sanpham_ten}</Text>
                 </ImageBackground>
               </TouchableOpacity>
             ))}
@@ -60,18 +58,19 @@ class Colection extends Component {
 
 const mapStateTopProps = (state) => {
   return {
-    colection: state.colection,
+    myshop: state.myshop,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetDSShop: () => {
-      dispatch(GetDSShopRequest());
+    GetSlideShop: (id_shop) => {
+      dispatch(getSlideShop(id_shop));
     },
   };
 };
-export default connect(mapStateTopProps, mapDispatchToProps)(Colection);
+
+export default connect(mapStateTopProps, mapDispatchToProps)(SlideShop);
 
 const imageWidth = width - 30;
 const imageHeight = (imageWidth / 933) * 465;
@@ -99,8 +98,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cateTitle: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: "#34B089",
+    fontSize: 20,
+
+    color: "#9A9A9A",
   },
 });

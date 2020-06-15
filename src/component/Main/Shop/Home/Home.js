@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeView from './HomeView';
 import ProductDetail from '../ProductDetail/ProductDetail';
 import ListProduct from '../ListProduct/ListProduct';
+import ShopDetail from '../ShopDetail/ShopDetail'
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ function MyStack() {
       <Stack.Screen name="HomeView" component={HomeView} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="ListProduct" component={ListProduct} />
+      <Stack.Screen name="ShopDetail" component={ShopDetail} />
     </Stack.Navigator>
   );
 }

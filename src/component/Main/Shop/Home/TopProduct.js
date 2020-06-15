@@ -39,7 +39,6 @@ class TopProduct extends Component {
                             onPress={() => {
                                 navigation.navigate('ProductDetail', {
                                     product: e,
-
                                 })
                             }}
                             key={e.id}>

@@ -65,8 +65,8 @@ class Authantication extends Component {
       password: "123456",
       email: "test@1234.com",
     };
-    
     this.props.onSignIn(a);
+    //this.props.onSignIn(this.state.info_SignIn);
   };
 
   clearText(fieldName) {
@@ -261,7 +261,7 @@ class Authantication extends Component {
             <Image source={icBack} style={iconStyle} />
           </TouchableOpacity>
           <Text style={titleStyle}>Nông sản</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
             <Image source={icLogo} style={iconStyle} />
           </TouchableOpacity>
         </View>
@@ -271,13 +271,13 @@ class Authantication extends Component {
             style={singInStyle}
             onPress={this.signIn.bind(this)}
           >
-            <Text style={isSignIn ? activeStyle : inactiveStyle}>Đăng kí</Text>
+            <Text style={isSignIn ? activeStyle : inactiveStyle}>Đăng nhập</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={signUpStyle}
             onPress={this.signUp.bind(this)}
           >
-            <Text style={!isSignIn ? activeStyle : inactiveStyle}>Đăng nhập</Text>
+            <Text style={!isSignIn ? activeStyle : inactiveStyle}>Đăng kí</Text>
           </TouchableOpacity>
         </View>
       </View>

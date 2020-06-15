@@ -6,11 +6,11 @@ var initialState = [];
 const cart = (state = initialState, action) => {
    switch (action.type) {
       case types.ADD_TO_CART:
-         console.log('ADD_TO_CART_SUCCESS state', state);
+       //  console.log('ADD_TO_CART_SUCCESS state', state);
          var gioHang = {
             "id": action.item.id,
             "sanpham_ten": action.item.sanpham_ten,
-            "qty": 1,
+            "qty": action.item.qty,
             "gia_tien": action.item.gia_tien,
             "weight": 30000,         
             "sanpham_anh": action.item.sanpham_anh,
@@ -47,7 +47,6 @@ const cart = (state = initialState, action) => {
          } else {
             return [...state, gioHang];
          }
-         console.log("Cart action" + JSON.stringify(huyhoang))
       case types.REMOVE_FROM_CART:
          const remaingList = [
             ...state.filter(i => i.id !== action.item.id)

@@ -48,7 +48,7 @@ class CartView extends Component {
 
     render() {
         var { cart } = this.props;
-        console.log('CartView ' + JSON.stringify(cart) );
+       // console.log('CartView ' + JSON.stringify(cart) );
         const { navigation } = this.props;
 
         const { main, checkoutButton, checkoutTitle, wrapper,
