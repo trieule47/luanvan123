@@ -26,7 +26,7 @@ import {
 import { actGetTTShop, actAddProduct } from "./../../../../action/ShopAction";
 const url = "http://vaomua.club/public/user/image/images/";
 
-class Card extends Component {
+class CartView extends Component {
   gotoDetail() {
     const { navigation } = this.props;
     navigation.push("ProductDetail");
@@ -61,18 +61,15 @@ class Card extends Component {
   };
 
   thanhtoan(cart, id_user) {
-    if(cart.length < 1){
-      alert('Giỏ hàng trống');
-    }
-    else{
-    this.props.Chiacard(this.props.cart.Cart);
     this.props.actOrderRequest(cart, id_user);
-    }
   }
-  componentDidMount(){
-    this.props.Chiacard(this.props.cart.Cart);
-    //this.thanhtoan(cart.Cart);
+  order(cart, id_user){
+    if(cart.length < 0 ){
+      alert('Giỏ hàng trống');
+    } else
+    this.props.navigation.navigate('Order');
   }
+
 
   render() {
     var { cart, user, shop } = this.props;
@@ -93,7 +90,6 @@ class Card extends Component {
       numberOfProduct,
       txtShowDetail,
       showDetailContainer,
-      listproduct,
     } = styles;
       return (
         <ImageBackground
@@ -101,13 +97,10 @@ class Card extends Component {
           style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}
         >
           <View style={wrapper}>
-            {cart.Carts.map((a)=>
-            <FlatList 
-              data={a}
-              ListHeaderComponent={()=><View style={listproduct}
-              key={a[0].shop_id}><Text>{a[0].tenshop}</Text></View>}
+            <FlatList
+              data={cart.Cart}
               renderItem={({ item }) => (
-                <View style={product} key={a[0].shop_id}>
+                <View style={product}>
                   <Image
                     source={{
                       uri:
@@ -136,7 +129,7 @@ class Card extends Component {
                       </TouchableOpacity>
                     </View>
                     <View>
-                      <Text style={txtPrice}>{a[0].shop_id}
+                      <Text style={txtPrice}>
                         Giá:
                         {(item.gia_tien * item.qty)
                           .toString()
@@ -179,8 +172,6 @@ class Card extends Component {
               )}
               keyExtractor={(item, index) => index.toString()}
             />
-            //</View>
-            )}
             <TouchableOpacity
               style={checkoutButton}
              // onPress={() => this.thanhtoan(cart, user.infoUser.id)}
@@ -193,7 +184,8 @@ class Card extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={checkoutButton}
-              onPress={() => this.thanhtoan(cart.Carts, user.infoUser.id)}
+              onPress={() => this.order(cart, user.infoUser.id)}
+            //  onPress={() => this.thanhtoan(cart.Carts, user.infoUser.id)}
             
             >
               <Text style={checkoutTitle}>
@@ -223,12 +215,12 @@ const mapDispatchToProps = (dispatch) => {
     onDownQuantity: (item) => dispatch(actDownQuantityCart(item)),
     //  getcart:(token) =>dispatch(actGetCart(token)),
     actOrderRequest: (item, id_user) =>
-      dispatch(actOrderRequest(item, 104)),
-    Chiacard: (item) =>dispatch(Chiacard(item)),
+      dispatch(actOrderRequest(item, id_user)),
+      Chiacard: (item) =>dispatch(Chiacard(item)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(CartView);
 
 const { width } = Dimensions.get("window");
 const imageWidth = width / 4;
@@ -236,7 +228,6 @@ const imageHeight = (imageWidth * 452) / 250;
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection:"column",
     flex: 1,
     // backgroundColor: "#DFDFDF",
   },
@@ -257,14 +248,6 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 15,
     fontWeight: "bold",
-  },
-  listproduct: {
-    //flexDirection: "row",
-    backgroundColor: "grey",
-    borderRadius: 10,
-    shadowColor: "#3B5458",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
   },
   product: {
     flexDirection: "row",

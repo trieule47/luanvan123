@@ -36,7 +36,7 @@ class Chitiet extends Component {
                 donvitinh_id: "",
                 gia_tien: "",
                 phan_tram_km: "",
-                donvi_id: "",
+               // donvi_id: "",
             },
         };
     }

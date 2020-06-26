@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionType';
 import callApi from '../network/apiCaller';
 
+
 export const actFetchCategoryRequest = (token) => {
     return (dispatch) => {
         return callApi('slide/15', 'GET', null,token).then(res => {
@@ -14,6 +15,7 @@ export const actFetchCategory= (item) => {
         item
     }
 }
+
 
 //======lấy all sp
 
@@ -31,6 +33,8 @@ export const actAllProducts = (item) => {
         item
     }
 }
+
+
 //===== LOAD MORE SAN PHAM SHOP 
 
 export const actLoadMoreRequest = (page) => {

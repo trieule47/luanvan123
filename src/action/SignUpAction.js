@@ -12,7 +12,7 @@ export const actSignUpRequest = (info) => {
             }
             else
             {
-                dispatch(actSignUp(res.data.user));
+              //  dispatch(actSignUp(res.data.user));
                 Alert.alert("Thông báo !", "Đăng kí thành công");
             }
         });

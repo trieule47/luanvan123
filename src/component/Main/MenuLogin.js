@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import {
     Avatar,
     Title,
@@ -8,13 +8,21 @@ import {
     Drawer,
     Text,
     TouchableRipple,
-    Switch
+    Switch,
+   
 } from 'react-native-paper';
 import {
     DrawerContentScrollView,
     DrawerItem
 } from '@react-navigation/drawer';
 import Logo from '../../media/temp/profile.png';
+import {
+  AntDesign,
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+  Entypo,
+} from "@expo/vector-icons";
 
 import { connect } from 'react-redux';
 import { actSignOut } from '../../action/UserAction';
@@ -54,25 +62,29 @@ function MenuLogin(props) {
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             label="Lịch sử giao dịch"
+                            icon={()=>(<AntDesign color='green' size={30} name='carryout' />)}
                             onPress={() => {props.navigation.navigate('OrderHistory')}}
                         />
                         
                         <DrawerItem 
                             label="Thay đổi thông tin"
+                            icon={()=>(<FontAwesome color='green' size={30} name='address-card-o' />)}
                             onPress={() => {props.navigation.navigate('ChangeInfo')}}
                         />
                         <DrawerItem 
                             label="Đăng kí mở shop"
+                            icon={()=>(<Entypo color='green' size={30} name='add-to-list' />)}
                             onPress={() => {
-                             // this.request();
                               props.navigation.navigate('DangKyShop')}}
                         />
                         <DrawerItem 
                             label="Shop của tôi"
+                            icon={()=>(<MaterialCommunityIcons color='green' size={30} name='shopify' />)}
                             onPress={() => {props.navigation.navigate('MyShop')}}
                         />
                         <DrawerItem 
                             label="Đăng xuất"
+                            icon={()=>(<AntDesign color='green' size={30} name='logout' />)}
                             onPress={() => {props.onSignOut()}}
                         />
                     </Drawer.Section>

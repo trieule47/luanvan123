@@ -12,7 +12,9 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { actAllProductsRequest } from "../../../../action/CategoryAction";
-import { actLoadMoreRequest } from "../../../../action/CategoryAction";
+import { actLoadMoreRequest } from "../../../../action/CategoryAction";actGetTTShop
+import { actGetTTShop } from "../../../../action/ShopAction";
+
 const sp1 =
   "http://vaomua.club/public/user/image/images//mon-ngon-tu-nam-kim-cham.jpg";
 const url = "http://vaomua.club/public/user/image/images/";
@@ -53,7 +55,7 @@ class ListProduct extends Component {
       txtShowDetail,
       btnPlus,
     } = styles;
-    const { category } = this.props;
+    const { category,myshop } = this.props;
     console.log("aaa " + JSON.stringify(category.sanphamshop));
     const { navigation } = this.props;
     return (
@@ -71,7 +73,11 @@ class ListProduct extends Component {
             data={category.sanphamshop}
             renderItem={({ item }) => {
               return (
-                <View style={productContainer}>
+                <TouchableOpacity style={productContainer}  onPress={() => {
+                  navigation.navigate("ProductDetail", {
+                    product: item,
+                  });
+                }}>
                   <Image
                     style={productImage}
                     source={{
@@ -84,21 +90,14 @@ class ListProduct extends Component {
                   <View style={productInfo}>
                     <Text style={txtName}>{item.sanpham_ten}</Text>
                     <Text style={txtPrice}>
-                      {item.gia_tien
+                      Giá :{item.gia_tien
                         .toString()
                         .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}{" "}
                       VNĐ
                     </Text>
-                    <Text style={txtMaterial}>{item.phan_tram_km}</Text>
+                    <Text style={txtMaterial}>Giảm giá :{item.phan_tram_km} %</Text>
                     <View style={lastRowInfo}>
-                      <View
-                        style={{
-                          backgroundColor: "green",
-                          height: 16,
-                          width: 16,
-                          borderRadius: 8,
-                        }}
-                      />
+                     
                       <TouchableOpacity
                         onPress={() => {
                           navigation.navigate("ProductDetail", {
@@ -110,8 +109,10 @@ class ListProduct extends Component {
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() => {
-                          navigation.navigate("ProductDetail", {
-                            product: item,
+                          this.props.actGetTTShop(item.shop_id)
+                          ,
+                          navigation.navigate("ShopDetail", {
+                            shop: myshop.inforShopcard,
                           });
                         }}
                       >
@@ -119,7 +120,7 @@ class ListProduct extends Component {
                       </TouchableOpacity>
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               );
             }}
             keyExtractor={(item) => item.id.toString()}
@@ -149,6 +150,7 @@ class ListProduct extends Component {
 const mapStateToProps = (state) => {
   return {
     category: state.category,
+    myshop: state.myshop ,
   };
 };
 
@@ -158,6 +160,8 @@ const mapDispatchToProps = (dispatch) => {
     LoadMore: (page) => {
       dispatch(actLoadMoreRequest(page));
     },
+    actGetTTShop: (item) => dispatch(actGetTTShop(item)),
+
   };
 };
 

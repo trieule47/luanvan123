@@ -70,7 +70,7 @@ class Shop extends Component {
                 }
                 size={size}
                 color={color}
-                badgeCount={cart.length}
+                badgeCount={cart.Cart.length}
               />
             );
           } else if (route.name === 'Tìm kiếm') {

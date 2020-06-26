@@ -25,12 +25,15 @@ class Detail extends Component {
       isLoading: true,
     };
   }
+
+
   componentDidMount() {
     this.setState({
       isLoading: this.props.colection.isLoading,
     });
     this.props.GetDataShop(this.props.id_shop, 1);
   }
+
 
   render() {
     const {
@@ -181,6 +184,7 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);
 

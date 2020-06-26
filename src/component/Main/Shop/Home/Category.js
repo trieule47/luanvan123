@@ -24,9 +24,13 @@ class Category extends Component {
     const { navigation } = this.props;
     navigation.push("ListProduct");
   }
+
+
   componentDidMount() {
     this.props.FetchCategory(this.props.user.token);
   }
+
+
   render() {
     const { category } = this.props;
     // console.log(" slide: " + slide);
@@ -75,11 +79,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     FetchCategory: (token) => {
       dispatch(actFetchCategoryRequest(token));
-      dispatch(actAllProductsRequest());
     },
     GetProduct: () => dispatch(actAllProductsRequest()),
   };
 };
+
+
 export default connect(mapStateTopProps, mapDispatchToProps)(Category);
 
 const imageWidth = width - 30;

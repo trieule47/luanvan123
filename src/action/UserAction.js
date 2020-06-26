@@ -20,14 +20,13 @@ import * as RootNavigation from '../navigation/RootNavigation'
 // }
 export const actSignInRequest = (info) => {
     return (dispatch) => {
-        callApi('login', 'POST', info , null).then(res => {
+        callApi('login', 'POST', info ).then(res => {
             if (res.data.success.token != "") {
                 const token = res.data.success.token;
                 callApi('user' , 'GET', null, token).then(res => {
                     dispatch(actSignIn(res.data, 'success', token));
                     RootNavigation.navigate('Shop');
-                })
-                
+                })    
             }
             else {
                dispatch(actSignIn([], "error"));
@@ -58,23 +57,13 @@ export const actSignOut = () =>{
 
 
 
-export const actChangeInfoRequest = (id, email, info,token) => {
-    const body = {
-        id : id,
-        email : email,
-        password: info.password ,
-        name : info.name,
-        sodienthoai : info.sodienthoai,
-        diachi : info.diachi,
-        anh_user: info.anh_user
-    }
+export const actChangeInfoRequest = (id,  info ,token) => {
+  
+   console.log( id +'a '+JSON.stringify(info.anh_user));
     return (dispatch) => {
-        callApi('change/' + id, 'PUT', body,token).then(res => {
-            if(res.data.status == "error")
-            {
-                Alert.alert("Thông báo !", "Thay đổi không thành công");
-            }
-            else
+        callApi('change/' + id, 'POST', info , token).then(res => {
+            console.log(res.data.status);
+            if(res.data.status == 'ok')
             {
                 dispatch(actChangeInfo(res.data.user));
                 Alert.alert("Thông báo !", "Thay đổi thành công", [
@@ -83,6 +72,10 @@ export const actChangeInfoRequest = (id, email, info,token) => {
                         onPress : () => {RootNavigation.navigate('Shop');}
                     }
                 ]);
+            }
+            else
+            {
+                Alert.alert("Thông báo !", "Thay đổi không thành công");
             }
         });
     };

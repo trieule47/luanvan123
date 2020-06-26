@@ -29,7 +29,7 @@ class Category extends Component {
         </View>
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
-            {myshop.slide_shop.map((e) => (
+            {myshop.slide_shop != [] ? myshop.slide_shop.map((e) => (
               <TouchableOpacity key={e.sanpham_anh_app}>
                 <ImageBackground
                   source={{
@@ -43,7 +43,8 @@ class Category extends Component {
                   <Text style={cateTitle} >{e.sanpham_ten}</Text>
                 </ImageBackground>
               </TouchableOpacity>
-            ))}
+            )):<View><Text>0 san pham</Text></View>
+          }
           </Swiper>
         </View>
       </View>

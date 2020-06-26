@@ -15,7 +15,7 @@ export default class Header extends Component {
         return (
             <View style={{ wrapper, backgroundColor: '#34B089', padding: 10  }}>
                 <View style={row1}>
-                    <TouchableOpacity onPress={()=> RootNavigation.navigate('Shop')} > 
+                    <TouchableOpacity onPress={()=> RootNavigation.goBack()} > 
                         <Image source={icback} style={iconStyle}  />
                     </TouchableOpacity>
                     <Text style = {titleStyle}>Nông sản</Text>

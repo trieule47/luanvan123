@@ -8,11 +8,12 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Picker,
 } from "react-native";
 
 import { Camera } from "expo-camera";
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import {
   FontAwesome,
   Ionicons,
@@ -20,10 +21,16 @@ import {
 } from "@expo/vector-icons";
 
 import HTML from "react-native-render-html";
-import { actAddProductRequest, actLoadMoreShopRequest } from "./../../../action/ShopAction";
+import {
+  actAddProductRequest,
+  actLoadMoreShopRequest,
+  actGetLoHang,
+  actGetLoaiSP,
+  actGetDonViTinh,
+} from "./../../../action/ShopAction";
 import { connect } from "react-redux";
 import { TextInput } from "react-native-paper";
-import * as RootNavigation from '../../../navigation/RootNavigation'
+import * as RootNavigation from "../../../navigation/RootNavigation";
 
 const icBack = require("../../../media/appIcon/back_white.png");
 const icLogo = require("../../../media/appIcon/ic_logo.png");
@@ -39,10 +46,10 @@ class AddProduct extends Component {
       hasPermission: " ",
       type: " ",
       sourceImage: " ",
-
+      user: "",
       sanPham: {
-        shop_id: "15",
-        lohang_id: "23",
+        shop_id: "",
+        lohang_id: "",
         sanpham_ten: "",
         sanpham_anh_app: "",
         sanpham_mo_ta: "",
@@ -81,10 +88,19 @@ class AddProduct extends Component {
   }
 
   ThemSanPham() {
-    this.props.AddProduct(this.state.sanPham, this.props.myshop.inforShop.id, this.props.user.token);
+    this.props.AddProduct(
+      this.state.sanPham,
+      this.props.myshop.inforShop.id,
+      this.props.user.token
+    );
   }
   kiemTra() {
-    this.setState({ sanPham: { ...this.state.sanPham, shop_id: this.props.myshop.inforShop.id }, });
+    this.setState({
+      sanPham: {
+        ...this.state.sanPham,
+        shop_id: this.props.myshop.inforShop.id,
+      },
+    });
     if (
       this.state.sanPham.lohang_id == "" ||
       this.state.sanPham.sanpham_ten == "" ||
@@ -99,27 +115,28 @@ class AddProduct extends Component {
     } else {
       this.ThemSanPham();
       //this.clearAllTextInput();
-
     }
   }
   //////ttttttt
   async componentDidMount() {
-    this.getPermissionAsync()
+    this.getPermissionAsync();
   }
 
   getPermissionAsync = async () => {
-    // Camera roll Permission 
-    if (Platform.OS === 'ios') {
+    // Camera roll Permission
+    if (Platform.OS === "ios") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
     }
     // Camera Permission
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasPermission: status === 'granted', type: Camera.Constants.Type.back });
-  }
-
+    this.setState({
+      hasPermission: status === "granted",
+      type: Camera.Constants.Type.back,
+    });
+  };
 
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -130,10 +147,30 @@ class AddProduct extends Component {
     this.setState({ sourceImage: result });
     this.setState({
       sanPham: { ...this.state.sanPham, sanpham_anh_app: result.base64 },
-    })
+    });
+  };
+  componentDidMount() {
+    this.props.GetLoaiSP();
+    this.props.GetDonviTinh();
+    this.props.GetLoHang(this.props.myshop.inforShop.id, this.props.user.token);
   }
+  updateLohang = (id) => {
+    this.setState({
+      sanPham: { ...this.state.sanPham, lohang_id: id },
+    });
+  };
+  updateLoai = (id) => {
+    this.setState({
+      sanPham: { ...this.state.sanPham, loaisanpham_id: id },
+    });
+  };
+  updateDonVi = (id) => {
+    this.setState({
+      sanPham: { ...this.state.sanPham, donvitinh_id: id },
+    });
+  };
   render() {
-    const { route, navigation } = this.props;
+    const { route, navigation, myshop } = this.props;
     const { hasPermission, type, sourceImage } = this.state;
     const {
       wrapper,
@@ -169,6 +206,8 @@ class AddProduct extends Component {
       bigButton,
       buttonText,
       title1Style,
+      picker,
+      inputStyleMoTa,
     } = styles;
     return (
       <ScrollView style={container}>
@@ -178,7 +217,7 @@ class AddProduct extends Component {
             <Image source={icBack} style={iconStyle} />
           </TouchableOpacity>
           <Text style={titleStyle}>Nông sản</Text>
-          <TouchableOpacity onPress={() => RootNavigation.navigate('Shop')} >
+          <TouchableOpacity onPress={() => RootNavigation.navigate("Shop")}>
             <Image source={icLogo} style={iconStyle} />
           </TouchableOpacity>
         </View>
@@ -188,8 +227,11 @@ class AddProduct extends Component {
             ĐIỀN ĐẦY ĐỦ THÔNG TIN SẢN PHẨM MUỐN THÊM{" "}
           </Text>
 
-          <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-            <Image style={{ margin: 10, height: 100, width: 100 }} source={sourceImage != " " ? sourceImage : ur} />
+          <View style={{ flexDirection: "row", marginLeft: 10 }}>
+            <Image
+              style={{ margin: 10, height: 100, width: 100 }}
+              source={sourceImage != " " ? sourceImage : ur}
+            />
             <TouchableOpacity
               onPress={this.pickImage.bind(this)}
               style={{
@@ -198,30 +240,28 @@ class AddProduct extends Component {
                 backgroundColor: "transparent",
               }}
             >
-              <Ionicons name="ios-photos" style={{ color: "#111", fontSize: 40 }} />
+              <Ionicons
+                name="ios-photos"
+                style={{ color: "#111", fontSize: 40 }}
+              />
             </TouchableOpacity>
           </View>
-          <TextInput
-            style={inputStyle}
-            placeholder="shop_id"
-            onChangeText={(text) =>
-              this.setState({
-                sanPham: { ...this.state.sanPham, shop_id: text },
-              })
-           // value={JSON.stringify(this.props.myshop.inforShop.id)
-          }
-          />
-          <TextInput
-            style={inputStyle}
-            ref={"txtlohang_id"}
-            placeholder="lohang_id"
-            keyboardType="number-pad"
-            onChangeText={(text) =>
-              this.setState({
-                sanPham: { ...this.state.sanPham, lohang_id: text },
-              })
-            }
-          />
+          <View style={picker}>
+            <Text style={{ flex: 1 }}>Lô Hàng </Text>
+            <Picker
+              style={{ flex: 3, backgroundColor: "pink" }}
+              selectedValue={this.state.sanPham.lohang_id}
+              onValueChange={this.updateLohang}
+            >
+              {myshop.lohang.map((e) => (
+                <Picker.Item
+                  label={"chọn lô hàng " + e.lohang_ky_hieu}
+                  value={e.id}
+                  key={e.id}
+                />
+              ))}
+            </Picker>
+          </View>
           <TextInput
             ref={"txtsanpham_ten"}
             style={inputStyle}
@@ -234,36 +274,48 @@ class AddProduct extends Component {
           />
           <TextInput
             ref={"txtsanpham_mo_ta"}
-            style={inputStyle}
+            style={inputStyleMoTa}
             placeholder="sanpham_mo_ta"
+            multiline={true}
+            numberOfLines={3}
             onChangeText={(text) =>
               this.setState({
                 sanPham: { ...this.state.sanPham, sanpham_mo_ta: text },
               })
             }
           />
-          <TextInput
-            ref={"txtloaisanpham_id"}
-            style={inputStyle}
-            placeholder="loaisanpham_id"
-            keyboardType="number-pad"
-            onChangeText={(text) =>
-              this.setState({
-                sanPham: { ...this.state.sanPham, loaisanpham_id: text },
-              })
-            }
-          />
-          <TextInput
-            ref={"txtdonvitinh_id"}
-            style={inputStyle}
-            placeholder="donvitinh_id"
-            keyboardType="number-pad"
-            onChangeText={(text) =>
-              this.setState({
-                sanPham: { ...this.state.sanPham, donvitinh_id: text },
-              })
-            }
-          />
+          <View style={picker}>
+            <Text style={{ flex: 1 }}>Loại sản phẩm </Text>
+            <Picker
+              style={{ flex: 3, backgroundColor: "pink" }}
+              selectedValue={this.state.sanPham.loaisanpham_id}
+              onValueChange={this.updateLoai}
+            >
+              {myshop.loaisanpham.map((e) => (
+                <Picker.Item
+                  label={"chọn loại " + e.loaisanpham_ten}
+                  value={e.id}
+                  key={e.id}
+                />
+              ))}
+            </Picker>
+          </View>
+          <View style={picker}>
+            <Text style={{ flex: 1 }}>Đơn vị tính </Text>
+            <Picker
+              style={{ flex: 3, backgroundColor: "pink" }}
+              selectedValue={this.state.sanPham.donvitinh_id}
+              onValueChange={this.updateDonVi}
+            >
+              {myshop.donvitinh.map((e) => (
+                <Picker.Item
+                  label={"chọn loại " + e.donvitinh_ten}
+                  value={e.id}
+                  key={e.id}
+                />
+              ))}
+            </Picker>
+          </View>
           <TextInput
             ref={"txtgia_tien"}
             style={inputStyle}
@@ -287,24 +339,19 @@ class AddProduct extends Component {
             }
           />
           <View style={bButton}>
-            <TouchableOpacity
-              style={bigButton}
-              onPress={() => this.kiemTra()}
-            >
+            <TouchableOpacity style={bigButton} onPress={() => this.kiemTra()}>
               <Text style={buttonText}>THÊM</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={bigButton} onPress={() => this.goBack()} >
-              <Text style={buttonText} >
-                HỦY
-              </Text>
+            <TouchableOpacity style={bigButton} onPress={() => this.goBack()}>
+              <Text style={buttonText}>HỦY</Text>
             </TouchableOpacity>
           </View>
         </View>
         <Text style={title1Style}>
-          <Text style={{ color: 'yellow' }}>warnning </Text>
-            HÃY ĐẢM BẢO ĐIỀN ĐẦY ĐỦ THÔNG TIN SẢN PHẨM MÀ BẠN MUỐN THÊM TRƯỚC KHI BẤM VÀO NÚT THÊM
-            thanks you!
-          </Text>
+          <Text style={{ color: "yellow" }}>warnning </Text>
+          HÃY ĐẢM BẢO ĐIỀN ĐẦY ĐỦ THÔNG TIN SẢN PHẨM MÀ BẠN MUỐN THÊM TRƯỚC KHI
+          BẤM VÀO NÚT THÊM thanks you!
+        </Text>
       </ScrollView>
     );
   }
@@ -314,6 +361,15 @@ const mapDispatchToProps = (dispatch) => {
     AddProduct: (infor, id_shop, token) => {
       dispatch(actAddProductRequest(infor, id_shop, token));
     },
+    GetLoHang: (id_shop, token) => {
+      dispatch(actGetLoHang(id_shop, token));
+    },
+    GetLoaiSP: () => {
+      dispatch(actGetLoaiSP());
+    },
+    GetDonviTinh: () => {
+      dispatch(actGetDonViTinh());
+    }
   };
 };
 
@@ -343,10 +399,14 @@ const styles = StyleSheet.create({
   },
   iconStyle: { width: 30, height: 30 },
   titleStyle: { color: "#FFF", fontSize: 30 },
-  title1Style: { color: "#FFF", fontSize: 20, textAlign: "center", marginBottom: 50 },
+  title1Style: {
+    color: "#FFF",
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 50,
+  },
   controlStyle: {
     flexDirection: "row",
-
   },
   inactiveStyle: {
     color: "#D7D7D7",
@@ -360,6 +420,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     marginBottom: 10,
     //borderRadius: 20,
+    paddingLeft: 30,
+    marginHorizontal: 20,
+  },
+  picker: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    height: 50,
+    backgroundColor: "#FFF",
+    marginBottom: 10,
+    flexDirection: "row",
+    paddingLeft: 30,
+    marginHorizontal: 20,
+  },
+  inputStyleMoTa: {
+    backgroundColor: "#FFF",
+    marginBottom: 10,
     paddingLeft: 30,
     marginHorizontal: 20,
   },

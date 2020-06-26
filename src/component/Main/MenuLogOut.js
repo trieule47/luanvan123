@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native';
+import {Image, View, StyleSheet } from 'react-native';
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+  AntDesign,
+} from "@expo/vector-icons";
+
 import {
     Avatar,
     Title,
@@ -35,6 +42,7 @@ function MenuLogOut(props) {
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             label="Đăng nhập"
+                            icon={()=>(<AntDesign color='green' size={30} name='login' />)}
                             onPress={() => {props.navigation.navigate('Authentication')}}
                         />
                     </Drawer.Section>

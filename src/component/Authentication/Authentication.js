@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Dimensions,
 } from "react-native";
 // Redux
 import { actSignUpRequest } from "../../action/SignUpAction";
@@ -78,10 +79,10 @@ class Authantication extends Component {
 
     const a = {
       password: "123456",
-      email: "test@1234.com",
+      email: "Test@1234.com",
     };
-    this.props.onSignIn(a);
-    //this.props.onSignIn(this.state.info_SignIn);
+    //this.props.onSignIn(a);
+    this.props.onSignIn(this.state.info_SignIn);
   };
 
   clearText(fieldName) {
@@ -169,6 +170,19 @@ class Authantication extends Component {
 
     const signInJSX = (
       <View>
+      <View style={row1}>
+          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
+            <Image source={icBack} style={iconStyle} />
+          </TouchableOpacity>
+          <Text style={titleStyle}>Nông sản</Text>
+          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
+            <Image source={icLogo} style={iconStyle} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ justifyContent: 'center',alignItems: 'center'}}>
+        <Image source={require("./vaomua.png")} style={{ width:250, height:250}} />
+      </View>
+      <View style={{ alignItems:'center' ,justifyContent:'center'}}>
         <TextInput
           style={inputStyle}
           placeholder="Nhập Email hoặc Tên đăng nhập"
@@ -206,10 +220,23 @@ class Authantication extends Component {
           <Text style={buttonText}>Đăng nhập</Text>
         </TouchableOpacity>
       </View>
+      </View>
     );
 
     const signUpJSX = (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}  >
+        <View style={row1}>
+          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
+            <Image source={icBack} style={iconStyle} />
+          </TouchableOpacity>
+          <Text style={titleStyle}>Nông sản</Text>
+          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
+            <Image source={icLogo} style={iconStyle} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ justifyContent: 'center',alignItems: 'center'}}>
+        <Image source={require("./vaomua.png")} style={{ width:250, height:250}} />
+      </View>
         <TextInput
           style={inputStyle}
           ref={"txtEmail"}
@@ -332,15 +359,8 @@ class Authantication extends Component {
     const mainJSX = isSignIn ? signInJSX : signUpJSX;
     return (
       <View style={container}>
-        <View style={row1}>
-          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
-            <Image source={icBack} style={iconStyle} />
-          </TouchableOpacity>
-          <Text style={titleStyle}>Nông sản</Text>
-          <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
-            <Image source={icLogo} style={iconStyle} />
-          </TouchableOpacity>
-        </View>
+        
+
         {mainJSX}
         <View style={controlStyle}>
           <TouchableOpacity
@@ -377,17 +397,19 @@ const mapDispatchToProps = (dispatch) => {
     onSignIn: (info) => {
       dispatch(actSignInRequest(info));
     }
-    
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Authantication);
 
+
+const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#3EBA77",
     padding: 20,
     justifyContent: "space-between",
+    
   },
   row1: {
     flexDirection: "row",
@@ -426,6 +448,7 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     height: 50,
+    width: width -40 ,
     backgroundColor: "#FFF",
     marginBottom: 10,
     borderRadius: 20,
@@ -438,6 +461,8 @@ const styles = StyleSheet.create({
     borderColor: "#FFF",
     alignItems: "center",
     justifyContent: "center",
+    width: width -40 ,
+    marginBottom:130,
   },
   buttonText: {
     color: "#FFF",

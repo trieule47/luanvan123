@@ -33,7 +33,7 @@ export default class OrderHistory extends Component {
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                                <Text style={{ color: '#C21C70' }}>2017-04-19 08:30:08</Text>
+                                <Text style={{ color: '#C21C70' }}></Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
@@ -41,7 +41,7 @@ export default class OrderHistory extends Component {
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
+                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}></Text>
                             </View>
                         </View>
 
@@ -60,7 +60,7 @@ export default class OrderHistory extends Component {
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
+                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}></Text>
                             </View>
                         </View>
 
@@ -79,7 +79,7 @@ export default class OrderHistory extends Component {
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
+                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}></Text>
                             </View>
                         </View>
                         <View style={orderRow}>

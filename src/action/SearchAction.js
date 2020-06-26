@@ -16,11 +16,36 @@ export const actSPTheoLoaiRequest = (key, token) => {
       });
     };
   };
-  
+
   export const actSPTheoLoaiShop = (sanpham) => {
       return {
         type: types.GET_SP_THEO_LOAI,
         sanpham,
       };
     };
+
+
+    
+    //=============== tìm sản phẩm
+    export const actTimSPRequest = (key) => {
+      
+      return (dispatch) => {
+        return callApi("search", "POST", key).then((res) => {
+          console.log(res.data.search);
+          if (res.data.search.data<1) {
+            Alert.alert("Thông báo ! ", "không tim thấy sản phẩm !");
+          } else {
+            dispatch(actTimSP(res.data.search.data));
+          }
+        });
+      };
+    };
+  
+    export const actTimSP = (sanpham) => {
+        return {
+          type: types.SEARCH_SP,
+          sanpham,
+        };
+      };
+    
   

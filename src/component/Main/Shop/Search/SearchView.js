@@ -9,9 +9,13 @@ import {
   Dimensions,
   TextInput,
   FlatList,
+  ImageBackground
 } from "react-native";
 import Header from "../Header";
-import { actSPTheoLoaiRequest } from "../../../../action/SearchAction";
+import {
+  actSPTheoLoaiRequest,
+  actTimSPRequest,
+} from "../../../../action/SearchAction";
 import { connect } from "react-redux";
 
 const url = "http://vaomua.club/public/user/image/images/";
@@ -74,7 +78,10 @@ class SearchView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 3,
+      tim: {
+        key: "",
+      },
+      key: "",
     };
   }
   gotoDetail() {
@@ -84,12 +91,12 @@ class SearchView extends Component {
   openMenu() {
     this.props.navigation.openDrawer();
   }
-  search() {
-    this.props.GetSPTheoLoai(this.state.key, this.props.user.token);
-  }
   Search(key) {
     this.setState({ key: key });
-    this.search();
+    this.props.GetSPTheoLoai(this.state.key, this.props.user.token);
+  }
+  Tim() {
+    this.props.TimSP(this.state.tim);
   }
 
   renderItem = ({ item, index }) => {
@@ -97,7 +104,12 @@ class SearchView extends Component {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
     return (
-      <TouchableOpacity onPress={()=>{this.Search(item.id)}} style={styles.item}>
+      <TouchableOpacity
+        onPress={() => {
+          this.Search(item.id);
+        }}
+        style={styles.item}
+      >
         <Text style={styles.itemText}>{item.title}</Text>
       </TouchableOpacity>
     );
@@ -117,39 +129,50 @@ class SearchView extends Component {
       showDetailContainer,
       wrapper,
       textIput,
+      btnSearch,
     } = styles;
 
-    const { myshop, navigation } = this.props;
+    const { search, navigation } = this.props;
     return (
+      <ImageBackground
+      source={require("./nen.jpg")}
+      style={{ flex: 1, resizeMode: "cover", justifyContent: "center", width:width }}
+    >
       <View style={wrapper}>
         <Header
           onOpen={() => {
             this.openMenu();
           }}
-        >
-        </Header>
-        <FlatList
+        ></Header>
+        {/* <FlatList
           data={formatData(Loai, numColumns)}
           style={container}
           renderItem={this.renderItem}
           numColumns={numColumns}
-        />
-        {/* <View style={{ flexDirection: "column" }}>
-          {Loai.map((e)=>(
-            <TouchableOpacity onPress={()=>this.Search(e.id)}><Text>{e.title}</Text></TouchableOpacity>
-          ))}
+        /> */}
+        <View style={{ flexDirection: "row" }}>
           <TextInput
             style={textIput}
             placeholder="Bạn muốn mua gì ?"
             underlineColorAndroid="transparent"
-            onChangeText={(text) => this.setState({ key: text })}
+            onChangeText={(text) =>
+              this.setState({
+                tim: {
+                  ...this.state.tim,
+                  key: text,
+                },
+              })
+            }
           />
-          <TouchableOpacity onPress={this.search.bind(this)}>
-            <Text>search</Text>
+          <TouchableOpacity
+            onPress={this.Tim.bind(this)}
+            style={btnSearch}
+          >
+            <Text style={{color:'white', fontSize: 20}}>Tìm</Text>
           </TouchableOpacity>
-        </View> */}
+        </View>
         <ScrollView>
-          {myshop.sanphamtheoloai.map((e) => (
+          {search.sanphamtim.map((e) => (
             <TouchableOpacity
               style={product}
               key={e.id}
@@ -215,13 +238,14 @@ class SearchView extends Component {
           </View> */}
         </ScrollView>
       </View>
+      </ImageBackground>
     );
   }
 }
 
 const mapStateTopProps = (state) => {
   return {
-    myshop: state.myshop,
+    search: state.search,
     user: state.user,
   };
 };
@@ -230,6 +254,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetSPTheoLoai: (key, token) => {
       dispatch(actSPTheoLoaiRequest(key, token));
+    },
+    TimSP: (key) => {
+      dispatch(actTimSPRequest(key));
     },
   };
 };
@@ -243,7 +270,6 @@ const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
-    
     marginVertical: 5,
   },
   item: {
@@ -252,8 +278,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     margin: 1,
-    height: 40, 
-    borderRadius:10,
+    height: 40,
+    borderRadius: 10,
   },
   itemInvisible: {
     backgroundColor: "transparent",
@@ -262,7 +288,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   wrapper: {
-    backgroundColor: "#F6F6F6",
+    //backgroundColor: "#F1F1F1",
     flex: 1,
   },
   product: {
@@ -331,9 +357,23 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   textIput: {
-    height: height / 23,
+    height: height/13,
+    flex:4,
     backgroundColor: "#FFF",
     paddingLeft: 10,
     paddingVertical: 0,
+    fontSize: 20
   },
+  btnSearch:{
+    flex:1,
+    borderWidth: 1,
+    width: 50,
+    margin: 5,
+    height: height/13 -12,
+    borderRadius: 10,
+    borderColor:'blue',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: '#34B089',
+  }
 });

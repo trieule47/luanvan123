@@ -34,7 +34,7 @@ class SlideShop extends Component {
         </View>
         <View style={{ flex: 3 }}>
           <Swiper width={imageWidth} height={imageHeight}>
-            { colection.slide_shops.map((e) => (
+            { colection.slide_shop.map((e) => (
               <TouchableOpacity key={e.sanpham_anh_app}>
                 <ImageBackground
                   source={{

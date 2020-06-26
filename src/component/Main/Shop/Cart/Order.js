@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Image,
   ImageBackground,
+  Picker,
 } from "react-native";
 import { connect } from "react-redux";
 import sp1 from "../../.././../media/temp/sp1.jpeg";
@@ -26,7 +27,13 @@ import {
 import { actGetTTShop, actAddProduct } from "./../../../../action/ShopAction";
 const url = "http://vaomua.club/public/user/image/images/";
 
-class Card extends Component {
+class Order extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      httt: "COD",
+    };
+  }
   gotoDetail() {
     const { navigation } = this.props;
     navigation.push("ProductDetail");
@@ -66,13 +73,17 @@ class Card extends Component {
     }
     else{
     this.props.Chiacard(this.props.cart.Cart);
-    this.props.actOrderRequest(cart, id_user);
+    this.props.actOrderRequest(cart, id_user , this.state.httt);
     }
   }
   componentDidMount(){
     this.props.Chiacard(this.props.cart.Cart);
     //this.thanhtoan(cart.Cart);
   }
+  updateHinhThucThanhToan = (key) => {
+    this.setState({ httt: key });
+    alert(this.state.httt);
+ }
 
   render() {
     var { cart, user, shop } = this.props;
@@ -94,6 +105,7 @@ class Card extends Component {
       txtShowDetail,
       showDetailContainer,
       listproduct,
+      picker,
     } = styles;
       return (
         <ImageBackground
@@ -117,61 +129,30 @@ class Card extends Component {
                     }}
                     style={productImage}
                   />
-                  <View style={[mainRight]}>
-                    <View
-                      style={{
-                        justifyContent: "space-between",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <Text style={txtName}>{item.sanpham_ten}</Text>
-                      <TouchableOpacity
-                        onPress={() => this.onRemoveFromCart(item)}
-                      >
-                        <Ionicons
-                          name="ios-close-circle-outline"
-                          color="black"
-                          size={30}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <View>
-                      <Text style={txtPrice}>{a[0].shop_id}
+                  <View style={{flex:3}}>
+                   
+                    <Text >{item.sanpham_ten}</Text>
+                    
+                  
+                      <Text >{a[0].shop_id}
                         Giá:
                         {(item.gia_tien * item.qty)
                           .toString()
                           .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}
                         $
-                      </Text>
-                      <Text style={txtPrice}>Giảm giá:{item.phan_tram_km}</Text>
-                      <Text style={txtPrice}>Đơn vị:{item.donvitinh}</Text>
-                      <Text style={txtPrice}>Shop:{item.tenshop}</Text>
-                    </View>
+                      </Text>   
+                      <Text >SL: {item.qty}</Text>       
+                      <Text >Shop:{item.tenshop}</Text>
+                    
                     <View style={productController}>
-                      <View style={numberOfProduct}>
-                        <TouchableOpacity
-                          onPress={() => this.onDownQuantity(item)}
-                        >
-                          <AntDesign name="minus" color="black" size={30} />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 20 }}>SL: {item.qty}</Text>
-                        <TouchableOpacity
-                          onPress={() => this.onUpdateQuantity(item)}
-                        >
-                          <AntDesign name="plus" color="black" size={30} />
-                        </TouchableOpacity>
-                      </View>
-                      <TouchableOpacity style={showDetailContainer}>
-                        <Text
-                          style={txtShowDetail}
+                      <TouchableOpacity style={showDetailContainer}
                           onPress={() => {
                             navigation.navigate("ProductDetail", {
                               product: item,
                             });
                           }}
                         >
-                          SHOW DETAILS
-                        </Text>
+                          
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -181,7 +162,34 @@ class Card extends Component {
             />
             //</View>
             )}
-            <TouchableOpacity
+            <View style={picker}>
+              <Text style={{ flex: 1 }}>Nhà cung cấp </Text>
+              <Picker
+                style={{
+                  flex: 3,
+                  backgroundColor: "pink",
+                  height: 45,
+                  marginHorizontal: 20,
+                  paddingLeft: 20,
+                  borderRadius: 20,
+                  marginBottom: 20,
+                  borderColor: "#2ABB9C",
+                  borderWidth: 1,
+                }}
+                selectedValue = {this.state.httt} onValueChange = {this.updateHinhThucThanhToan}>
+
+                  <Picker.Item
+                    label={"Trả tiền khi nhận hàng" }
+                    value={"COD"}
+                  />
+                   <Picker.Item
+                    label={"Chuyển khoản" }
+                    value={"BANK"}
+                  />
+                  
+              </Picker>
+            </View>
+            {/* <TouchableOpacity
               style={checkoutButton}
              // onPress={() => this.thanhtoan(cart, user.infoUser.id)}
              onPress={() => this.props.Chiacard(cart.Cart)}
@@ -190,11 +198,10 @@ class Card extends Component {
               <Text style={checkoutTitle}>
                 Tổng tiền {this.showTotalAmount(cart.Cart)} VNĐ (Thanh toán ngay)
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={checkoutButton}
               onPress={() => this.thanhtoan(cart.Carts, user.infoUser.id)}
-            
             >
               <Text style={checkoutTitle}>
                 Đặt  (Thanh toán ngay)
@@ -223,15 +230,15 @@ const mapDispatchToProps = (dispatch) => {
     onDownQuantity: (item) => dispatch(actDownQuantityCart(item)),
     //  getcart:(token) =>dispatch(actGetCart(token)),
     actOrderRequest: (item, id_user) =>
-      dispatch(actOrderRequest(item, 104)),
+      dispatch(actOrderRequest(item, id_user)),
     Chiacard: (item) =>dispatch(Chiacard(item)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(Order);
 
 const { width } = Dimensions.get("window");
-const imageWidth = width / 4;
+const imageWidth = width / 10;
 const imageHeight = (imageWidth * 452) / 250;
 
 const styles = StyleSheet.create({
@@ -283,8 +290,7 @@ const styles = StyleSheet.create({
     resizeMode: "center",
   },
   mainRight: {
-    flex: 3,
-    justifyContent: "space-between",
+    
   },
   productController: {
     flexDirection: "row",
@@ -319,5 +325,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
+  },
+  picker: {
+    flexDirection: "row",
+    height: 45,
+    marginHorizontal: 20,
+    backgroundColor: "#FFFFFF",
+    paddingLeft: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+    borderColor: "#2ABB9C",
+    borderWidth: 1,
   },
 });
